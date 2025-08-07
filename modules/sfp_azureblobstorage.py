@@ -16,6 +16,7 @@ import threading
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_azureblobstorage(SpiderFootPlugin):
@@ -62,13 +63,13 @@ class sfp_azureblobstorage(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "LINKED_URL_EXTERNAL"]
+        return filteredEvents(["DOMAIN_NAME", "LINKED_URL_EXTERNAL"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["CLOUD_STORAGE_BUCKET"]
+        return filteredEvents(["CLOUD_STORAGE_BUCKET"])
 
     def checkSite(self, url):
         res = self.sf.fetchUrl(url, timeout=10, useragent="SpiderFoot", noLog=True)

@@ -19,6 +19,7 @@ from queue import Empty as QueueEmpty
 from queue import Queue
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_accounts(SpiderFootPlugin):
@@ -97,11 +98,11 @@ class sfp_accounts(SpiderFootPlugin):
             return
 
     def watchedEvents(self):
-        return ["EMAILADDR", "DOMAIN_NAME", "HUMAN_NAME", "USERNAME"]
+        return filteredEvents(["EMAILADDR", "DOMAIN_NAME", "HUMAN_NAME", "USERNAME"])
 
     def producedEvents(self):
-        return ["USERNAME", "ACCOUNT_EXTERNAL_OWNED",
-                "SIMILAR_ACCOUNT_EXTERNAL"]
+        return filteredEvents(["USERNAME", "ACCOUNT_EXTERNAL_OWNED",
+                "SIMILAR_ACCOUNT_EXTERNAL"])
 
     def checkSite(self, name, site):
         if 'uri_check' not in site:

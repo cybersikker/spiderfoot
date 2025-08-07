@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_cookie(SpiderFootPlugin):
@@ -40,11 +41,11 @@ class sfp_cookie(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["WEBSERVER_HTTPHEADERS"]
+        return filteredEvents(["WEBSERVER_HTTPHEADERS"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["TARGET_WEB_COOKIE"]
+        return filteredEvents(["TARGET_WEB_COOKIE"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

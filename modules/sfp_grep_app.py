@@ -18,6 +18,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
 
 
@@ -65,12 +66,12 @@ class sfp_grep_app(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC", "DOMAIN_NAME",
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC", "DOMAIN_NAME",
                 "INTERNET_NAME", "RAW_RIR_DATA",
-                "INTERNET_NAME_UNRESOLVED", "LINKED_URL_INTERNAL"]
+                "INTERNET_NAME_UNRESOLVED", "LINKED_URL_INTERNAL"])
 
     def query(self, qry, page):
         params = {

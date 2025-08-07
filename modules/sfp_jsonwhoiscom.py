@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_jsonwhoiscom(SpiderFootPlugin):
@@ -74,13 +75,13 @@ class sfp_jsonwhoiscom(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "AFFILIATE_DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "AFFILIATE_DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "DOMAIN_REGISTRAR", "DOMAIN_WHOIS", "PROVIDER_DNS",
+        return filteredEvents(["RAW_RIR_DATA", "DOMAIN_REGISTRAR", "DOMAIN_WHOIS", "PROVIDER_DNS",
                 "EMAILADDR", "EMAILADDR_GENERIC", "PHONE_NUMBER", "PHYSICAL_ADDRESS",
-                "AFFILIATE_DOMAIN_UNREGISTERED"]
+                "AFFILIATE_DOMAIN_UNREGISTERED"])
 
     # Query domain
     # https://jsonwhois.com/docs

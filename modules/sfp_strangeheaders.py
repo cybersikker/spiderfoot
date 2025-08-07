@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 # Standard headers, taken from http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 headers = [
@@ -104,11 +105,11 @@ class sfp_strangeheaders(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["WEBSERVER_HTTPHEADERS"]
+        return filteredEvents(["WEBSERVER_HTTPHEADERS"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["WEBSERVER_STRANGEHEADER"]
+        return filteredEvents(["WEBSERVER_STRANGEHEADER"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

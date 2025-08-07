@@ -15,6 +15,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
 
 
@@ -60,15 +61,15 @@ class sfp_google_tag_manager(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['WEB_ANALYTICS_ID']
+        return filteredEvents(['WEB_ANALYTICS_ID'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'DOMAIN_NAME',
             'INTERNET_NAME',
             'AFFILIATE_DOMAIN_NAME',
             'AFFILIATE_INTERNET_NAME',
-        ]
+        ])
 
     # from: https://stackoverflow.com/a/43211062
     def is_valid_hostname(self, hostname: str = None) -> bool:

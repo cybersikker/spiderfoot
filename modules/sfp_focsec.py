@@ -14,6 +14,7 @@ import json
 import urllib
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_focsec(SpiderFootPlugin):
@@ -62,20 +63,20 @@ class sfp_focsec(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "GEOINFO",
             "MALICIOUS_IPADDR",
             "PROXY_HOST",
             "VPN_HOST",
             "TOR_EXIT_NODE",
-        ]
+        ])
 
     def query(self, qry):
         """Retrieve IP address information from Focsec.

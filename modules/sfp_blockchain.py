@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_blockchain(SpiderFootPlugin):
@@ -57,13 +58,13 @@ class sfp_blockchain(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['BITCOIN_ADDRESS']
+        return filteredEvents(['BITCOIN_ADDRESS'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["BITCOIN_BALANCE"]
+        return filteredEvents(["BITCOIN_BALANCE"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -16,6 +16,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_intelx(SpiderFootPlugin):
@@ -97,14 +98,14 @@ class sfp_intelx(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "AFFILIATE_IPADDR", "INTERNET_NAME", "EMAILADDR",
-                "CO_HOSTED_SITE", "PHONE_NUMBER", "BITCOIN_ADDRESS"]
+        return filteredEvents(["IP_ADDRESS", "AFFILIATE_IPADDR", "INTERNET_NAME", "EMAILADDR",
+                "CO_HOSTED_SITE", "PHONE_NUMBER", "BITCOIN_ADDRESS"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["LEAKSITE_URL", "DARKNET_MENTION_URL",
+        return filteredEvents(["LEAKSITE_URL", "DARKNET_MENTION_URL",
                 "INTERNET_NAME", "DOMAIN_NAME",
-                "EMAILADDR", "EMAILADDR_GENERIC"]
+                "EMAILADDR", "EMAILADDR_GENERIC"])
 
     def query(self, qry, qtype):
         retdata = list()

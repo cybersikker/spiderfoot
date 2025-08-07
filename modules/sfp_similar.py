@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 nearchars = {
     'a': ['4', 's'],
@@ -91,13 +92,13 @@ class sfp_similar(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["SIMILARDOMAIN"]
+        return filteredEvents(["SIMILARDOMAIN"])
 
     # Search for similar sounding domains
     def handleEvent(self, event):

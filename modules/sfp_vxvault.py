@@ -11,6 +11,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_vxvault(SpiderFootPlugin):
@@ -64,7 +65,7 @@ class sfp_vxvault(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "IP_ADDRESS",
             "IPV6_ADDRESS",
@@ -72,17 +73,17 @@ class sfp_vxvault(SpiderFootPlugin):
             "AFFILIATE_IPV6_ADDRESS",
             "AFFILIATE_INTERNET_NAME",
             "CO_HOSTED_SITE"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "MALICIOUS_IPADDR",
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST"
-        ]
+        ])
 
     def queryBlacklist(self, target):
         blacklist = self.retrieveBlacklist()

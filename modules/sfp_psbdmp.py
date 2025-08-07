@@ -13,6 +13,7 @@ import json
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_psbdmp(SpiderFootPlugin):
@@ -51,10 +52,10 @@ class sfp_psbdmp(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["EMAILADDR", "DOMAIN_NAME", "INTERNET_NAME"]
+        return filteredEvents(["EMAILADDR", "DOMAIN_NAME", "INTERNET_NAME"])
 
     def producedEvents(self):
-        return ["LEAKSITE_URL", "LEAKSITE_CONTENT"]
+        return filteredEvents(["LEAKSITE_URL", "LEAKSITE_CONTENT"])
 
     def query(self, qry):
         ret = None

@@ -12,6 +12,7 @@
 
 from netaddr import IPAddress, IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -68,7 +69,7 @@ class sfp_blocklistde(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
@@ -77,10 +78,10 @@ class sfp_blocklistde(SpiderFootPlugin):
             "NETBLOCKV6_MEMBER",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -89,7 +90,7 @@ class sfp_blocklistde(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_NETBLOCK",
             "MALICIOUS_SUBNET",
-        ]
+        ])
 
     def queryBlacklist(self, target, targetType):
         blacklist = self.retrieveBlacklist()

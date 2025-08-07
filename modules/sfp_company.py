@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_company(SpiderFootPlugin):
@@ -42,13 +43,13 @@ class sfp_company(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT", "SSL_CERTIFICATE_ISSUED",
+        return filteredEvents(["TARGET_WEB_CONTENT", "SSL_CERTIFICATE_ISSUED",
                 "DOMAIN_WHOIS", "NETBLOCK_WHOIS",
-                "AFFILIATE_DOMAIN_WHOIS", "AFFILIATE_WEB_CONTENT"]
+                "AFFILIATE_DOMAIN_WHOIS", "AFFILIATE_WEB_CONTENT"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["COMPANY_NAME", "AFFILIATE_COMPANY_NAME"]
+        return filteredEvents(["COMPANY_NAME", "AFFILIATE_COMPANY_NAME"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -14,6 +14,7 @@ import time
 from datetime import datetime
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_fullcontact(SpiderFootPlugin):
@@ -75,17 +76,17 @@ class sfp_fullcontact(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "EMAILADDR"]
+        return filteredEvents(["DOMAIN_NAME", "EMAILADDR"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "EMAILADDR",
             "EMAILADDR_GENERIC",
             "RAW_RIR_DATA",
             "PHONE_NUMBER",
             "GEOINFO",
             "PHYSICAL_ADDRESS"
-        ]
+        ])
 
     def query(self, url, data, failcount=0):
         headers = {

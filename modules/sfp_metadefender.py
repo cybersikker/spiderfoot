@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_metadefender(SpiderFootPlugin):
@@ -72,17 +73,17 @@ class sfp_metadefender(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'INTERNET_NAME']
+        return filteredEvents(['IP_ADDRESS', 'INTERNET_NAME'])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'MALICIOUS_IPADDR',
             'MALICIOUS_INTERNET_NAME',
             'BLACKLISTED_IPADDR',
             'BLACKLISTED_INTERNET_NAME',
             'GEOINFO'
-        ]
+        ])
 
     # Query domain REST API
     # https://onlinehelp.opswat.com/mdcloud/4.5_Domain_Reputation.html

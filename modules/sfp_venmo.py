@@ -13,6 +13,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_venmo(SpiderFootPlugin):
@@ -52,11 +53,11 @@ class sfp_venmo(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['USERNAME']
+        return filteredEvents(['USERNAME'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'HUMAN_NAME']
+        return filteredEvents(['RAW_RIR_DATA', 'HUMAN_NAME'])
 
     # Query Venmo API
     def query(self, qry):

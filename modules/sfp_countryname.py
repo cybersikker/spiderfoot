@@ -17,6 +17,7 @@ import phonenumbers
 from phonenumbers.phonenumberutil import region_code_for_country_code
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_countryname(SpiderFootPlugin):
@@ -167,14 +168,14 @@ class sfp_countryname(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IBAN_NUMBER", "PHONE_NUMBER", "AFFILIATE_DOMAIN_NAME",
+        return filteredEvents(["IBAN_NUMBER", "PHONE_NUMBER", "AFFILIATE_DOMAIN_NAME",
                 "CO_HOSTED_SITE_DOMAIN", "DOMAIN_NAME", "SIMILARDOMAIN",
                 "AFFILIATE_DOMAIN_WHOIS", "CO_HOSTED_SITE_DOMAIN_WHOIS",
-                "DOMAIN_WHOIS", "GEOINFO", "PHYSICAL_ADDRESS"]
+                "DOMAIN_WHOIS", "GEOINFO", "PHYSICAL_ADDRESS"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["COUNTRY_NAME"]
+        return filteredEvents(["COUNTRY_NAME"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

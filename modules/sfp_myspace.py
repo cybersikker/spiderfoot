@@ -11,6 +11,7 @@
 
 import re
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -55,10 +56,10 @@ class sfp_myspace(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["EMAILADDR", "SOCIAL_MEDIA"]
+        return filteredEvents(["EMAILADDR", "SOCIAL_MEDIA"])
 
     def producedEvents(self):
-        return ["SOCIAL_MEDIA", "GEOINFO"]
+        return filteredEvents(["SOCIAL_MEDIA", "GEOINFO"])
 
     def handleEvent(self, event):
         eventName = event.eventType

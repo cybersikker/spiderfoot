@@ -16,6 +16,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_botscout(SpiderFootPlugin):
@@ -69,10 +70,10 @@ class sfp_botscout(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'EMAILADDR']
+        return filteredEvents(['IP_ADDRESS', 'EMAILADDR'])
 
     def producedEvents(self):
-        return ["MALICIOUS_IPADDR", "BLACKLISTED_IPADDR", "MALICIOUS_EMAILADDR"]
+        return filteredEvents(["MALICIOUS_IPADDR", "BLACKLISTED_IPADDR", "MALICIOUS_EMAILADDR"])
 
     def queryIp(self, ip):
         if not self.sf.validIP(ip):

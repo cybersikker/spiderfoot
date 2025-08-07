@@ -11,6 +11,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_intfiles(SpiderFootPlugin):
@@ -45,13 +46,13 @@ class sfp_intfiles(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL"]
+        return filteredEvents(["LINKED_URL_INTERNAL"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["INTERESTING_FILE"]
+        return filteredEvents(["INTERESTING_FILE"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -14,6 +14,7 @@ import json
 import urllib.parse
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ipregistry(SpiderFootPlugin):
@@ -62,10 +63,10 @@ class sfp_ipregistry(SpiderFootPlugin):
             self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS"])
 
     def producedEvents(self):
-        return ["GEOINFO", "MALICIOUS_IPADDR", "PHYSICAL_COORDINATES", "RAW_RIR_DATA"]
+        return filteredEvents(["GEOINFO", "MALICIOUS_IPADDR", "PHYSICAL_COORDINATES", "RAW_RIR_DATA"])
 
     def query(self, qry):
         qs = urllib.parse.urlencode({"key": self.opts["api_key"]})

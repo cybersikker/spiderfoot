@@ -13,6 +13,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 regexps = dict({
     "LinkedIn (Individual)": list(['.*linkedin.com/in/([a-zA-Z0-9_]+$)']),
@@ -59,10 +60,10 @@ class sfp_social(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["LINKED_URL_EXTERNAL"]
+        return filteredEvents(["LINKED_URL_EXTERNAL"])
 
     def producedEvents(self):
-        return ["SOCIAL_MEDIA", "USERNAME"]
+        return filteredEvents(["SOCIAL_MEDIA", "USERNAME"])
 
     def handleEvent(self, event):
         eventName = event.eventType

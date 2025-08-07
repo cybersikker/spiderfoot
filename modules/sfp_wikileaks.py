@@ -12,6 +12,7 @@
 
 import datetime
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
 
 
@@ -61,13 +62,13 @@ class sfp_wikileaks(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "EMAILADDR", "HUMAN_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "EMAILADDR", "HUMAN_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["LEAKSITE_CONTENT", "LEAKSITE_URL"]
+        return filteredEvents(["LEAKSITE_CONTENT", "LEAKSITE_URL"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

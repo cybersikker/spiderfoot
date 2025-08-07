@@ -15,6 +15,7 @@ import re
 from bs4 import BeautifulSoup
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_reversewhois(SpiderFootPlugin):
@@ -58,11 +59,11 @@ class sfp_reversewhois(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["AFFILIATE_INTERNET_NAME", "AFFILIATE_DOMAIN_NAME", "DOMAIN_REGISTRAR"]
+        return filteredEvents(["AFFILIATE_INTERNET_NAME", "AFFILIATE_DOMAIN_NAME", "DOMAIN_REGISTRAR"])
 
     # Search ReverseWhois
     def query(self, qry):

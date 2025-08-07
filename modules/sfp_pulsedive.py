@@ -19,6 +19,7 @@ from datetime import datetime
 
 from netaddr import IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -91,7 +92,7 @@ class sfp_pulsedive(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
@@ -101,13 +102,13 @@ class sfp_pulsedive(SpiderFootPlugin):
             "NETBLOCKV6_OWNER",
             "NETBLOCK_MEMBER",
             "NETBLOCKV6_MEMBER",
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return ["MALICIOUS_INTERNET_NAME", "MALICIOUS_IPADDR",
+        return filteredEvents(["MALICIOUS_INTERNET_NAME", "MALICIOUS_IPADDR",
                 "MALICIOUS_AFFILIATE_IPADDR", "MALICIOUS_NETBLOCK",
-                'TCP_PORT_OPEN']
+                'TCP_PORT_OPEN'])
 
     # https://pulsedive.com/api/
     def query(self, qry):

@@ -19,6 +19,7 @@ from netaddr import IPNetwork
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_testsslsh(SpiderFootPlugin):
@@ -67,17 +68,17 @@ class sfp_tool_testsslsh(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME', 'IP_ADDRESS', 'NETBLOCK_OWNER']
+        return filteredEvents(['INTERNET_NAME', 'IP_ADDRESS', 'NETBLOCK_OWNER'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'VULNERABILITY_CVE_CRITICAL',
             'VULNERABILITY_CVE_HIGH',
             'VULNERABILITY_CVE_MEDIUM',
             'VULNERABILITY_CVE_LOW',
             'VULNERABILITY_GENERAL',
             'IP_ADDRESS'
-        ]
+        ])
 
     def handleEvent(self, event):
         eventName = event.eventType

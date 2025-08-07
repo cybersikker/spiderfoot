@@ -17,6 +17,7 @@ import os.path
 from subprocess import PIPE, Popen
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_cmseek(SpiderFootPlugin):
@@ -61,13 +62,13 @@ class sfp_tool_cmseek(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['INTERNET_NAME']
+        return filteredEvents(['INTERNET_NAME'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["WEBSERVER_TECHNOLOGY"]
+        return filteredEvents(["WEBSERVER_TECHNOLOGY"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -16,6 +16,7 @@ import time
 from datetime import datetime
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_onyphe(SpiderFootPlugin):
@@ -82,11 +83,11 @@ class sfp_onyphe(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS"])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "GEOINFO",
             "MALICIOUS_IPADDR",
             "LEAKSITE_CONTENT",
@@ -99,7 +100,7 @@ class sfp_onyphe(SpiderFootPlugin):
             "INTERNET_NAME",
             "INTERNET_NAME_UNRESOLVED",
             "PHYSICAL_COORDINATES",
-        ]
+        ])
 
     def query(self, endpoint, ip, page=1):
         retarr = list()

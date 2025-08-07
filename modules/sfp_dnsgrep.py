@@ -20,6 +20,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnsgrep(SpiderFootPlugin):
@@ -75,11 +76,11 @@ class sfp_dnsgrep(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED", "RAW_RIR_DATA"]
+        return filteredEvents(["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED", "RAW_RIR_DATA"])
 
     # Query the DNSGrep REST API
     def query(self, qry):

@@ -14,6 +14,7 @@ import re
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_callername(SpiderFootPlugin):
@@ -62,11 +63,11 @@ class sfp_callername(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['PHONE_NUMBER']
+        return filteredEvents(['PHONE_NUMBER'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['GEOINFO', 'MALICIOUS_PHONE_NUMBER']
+        return filteredEvents(['GEOINFO', 'MALICIOUS_PHONE_NUMBER'])
 
     # Handle events sent to this module
     def handleEvent(self, event):

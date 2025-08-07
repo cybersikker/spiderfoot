@@ -17,6 +17,7 @@ import os.path
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_snallygaster(SpiderFootPlugin):
@@ -61,16 +62,16 @@ class sfp_tool_snallygaster(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME']
+        return filteredEvents(['INTERNET_NAME'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'VULNERABILITY_GENERAL',
             'VULNERABILITY_CVE_CRITICAL',
             'VULNERABILITY_CVE_HIGH',
             'VULNERABILITY_CVE_MEDIUM',
             'VULNERABILITY_CVE_LOW'
-        ]
+        ])
 
     def handleEvent(self, event):
         eventName = event.eventType

@@ -18,6 +18,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_greynoise(SpiderFootPlugin):
@@ -88,11 +89,11 @@ class sfp_greynoise(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "AFFILIATE_IPADDR", "NETBLOCK_MEMBER", "NETBLOCK_OWNER"]
+        return filteredEvents(["IP_ADDRESS", "AFFILIATE_IPADDR", "NETBLOCK_MEMBER", "NETBLOCK_OWNER"])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "MALICIOUS_IPADDR",
             "MALICIOUS_ASN",
             "MALICIOUS_SUBNET",
@@ -103,7 +104,7 @@ class sfp_greynoise(SpiderFootPlugin):
             "BGP_AS_MEMBER",
             "OPERATING_SYSTEM",
             "RAW_RIR_DATA",
-        ]
+        ])
 
     def queryIP(self, qry, qry_type):
         gn_context_url = "https://api.greynoise.io/v2/noise/context/"

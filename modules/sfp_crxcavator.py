@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_crxcavator(SpiderFootPlugin):
@@ -57,12 +58,12 @@ class sfp_crxcavator(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'DOMAIN_NAME'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'APPSTORE_ENTRY',
             'INTERNET_NAME',
             'INTERNET_NAME_UNRESOLVED',
@@ -71,7 +72,7 @@ class sfp_crxcavator(SpiderFootPlugin):
             'AFFILIATE_INTERNET_NAME_UNRESOLVED',
             'PHYSICAL_ADDRESS',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     def query(self, qry):
         params = urllib.parse.urlencode({

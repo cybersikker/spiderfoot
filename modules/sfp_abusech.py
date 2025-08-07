@@ -14,6 +14,7 @@
 from netaddr import IPAddress, IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_abusech(SpiderFootPlugin):
@@ -89,7 +90,7 @@ class sfp_abusech(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "IP_ADDRESS",
             "NETBLOCK_MEMBER",
@@ -97,11 +98,11 @@ class sfp_abusech(SpiderFootPlugin):
             "AFFILIATE_IPADDR",
             "CO_HOSTED_SITE",
             "NETBLOCK_OWNER"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "MALICIOUS_IPADDR",
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_IPADDR",
@@ -109,7 +110,7 @@ class sfp_abusech(SpiderFootPlugin):
             "MALICIOUS_SUBNET",
             "MALICIOUS_COHOST",
             "MALICIOUS_NETBLOCK"
-        ]
+        ])
 
     def queryFeodoTrackerBlacklist(self, target, targetType):
         blacklist = self.retrieveFeodoTrackerBlacklist()

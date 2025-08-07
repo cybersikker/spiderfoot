@@ -18,6 +18,7 @@ from datetime import datetime
 
 from netaddr import IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -99,7 +100,7 @@ class sfp_xforce(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             'IPV6_ADDRESS',
@@ -108,10 +109,10 @@ class sfp_xforce(SpiderFootPlugin):
             "NETBLOCKV6_MEMBER",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -125,7 +126,7 @@ class sfp_xforce(SpiderFootPlugin):
             "DOMAIN_NAME",
             "CO_HOSTED_SITE",
             "RAW_RIR_DATA",
-        ]
+        ])
 
     def query(self, qry, querytype):
         if querytype not in ["ipr/malware", "ipr/history", "resolve"]:

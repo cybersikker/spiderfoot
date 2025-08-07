@@ -14,6 +14,7 @@ import re
 import urllib.parse
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_base64(SpiderFootPlugin):
@@ -45,11 +46,11 @@ class sfp_base64(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL"]
+        return filteredEvents(["LINKED_URL_INTERNAL"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["BASE64_DATA"]
+        return filteredEvents(["BASE64_DATA"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

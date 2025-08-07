@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_onionsearchengine(SpiderFootPlugin):
@@ -70,13 +71,13 @@ class sfp_onionsearchengine(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "HUMAN_NAME", "EMAILADDR"]
+        return filteredEvents(["DOMAIN_NAME", "HUMAN_NAME", "EMAILADDR"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["DARKNET_MENTION_URL", "DARKNET_MENTION_CONTENT"]
+        return filteredEvents(["DARKNET_MENTION_URL", "DARKNET_MENTION_CONTENT"])
 
     def handleEvent(self, event):
         eventName = event.eventType

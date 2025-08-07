@@ -12,6 +12,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_openbugbounty(SpiderFootPlugin):
@@ -65,11 +66,11 @@ class sfp_openbugbounty(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["VULNERABILITY_DISCLOSURE"]
+        return filteredEvents(["VULNERABILITY_DISCLOSURE"])
 
     # Query XSSposed.org
     def queryOBB(self, qry):

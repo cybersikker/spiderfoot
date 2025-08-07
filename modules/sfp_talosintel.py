@@ -14,6 +14,7 @@
 from netaddr import IPAddress, IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_talosintel(SpiderFootPlugin):
@@ -70,16 +71,16 @@ class sfp_talosintel(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "AFFILIATE_IPADDR",
             "NETBLOCK_MEMBER",
             "NETBLOCK_OWNER"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -88,7 +89,7 @@ class sfp_talosintel(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_SUBNET",
             "MALICIOUS_NETBLOCK",
-        ]
+        ])
 
     def queryBlacklist(self, target, targetType):
         blacklist = self.retrieveBlacklist()

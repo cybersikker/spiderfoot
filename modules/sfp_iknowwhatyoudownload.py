@@ -15,6 +15,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_iknowwhatyoudownload(SpiderFootPlugin):
@@ -68,10 +69,10 @@ class sfp_iknowwhatyoudownload(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS"])
 
     def producedEvents(self):
-        return ["MALICIOUS_IPADDR"]
+        return filteredEvents(["MALICIOUS_IPADDR"])
 
     def query(self, qry):
         """Search iknowwhatyoudownload.com for an IPv4/IPv6 address.

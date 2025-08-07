@@ -13,6 +13,7 @@
 import json
 import time
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -73,13 +74,13 @@ class sfp_leakix(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "DOMAIN_NAME"]
+        return filteredEvents(["IP_ADDRESS", "DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "GEOINFO", "TCP_PORT_OPEN",
+        return filteredEvents(["RAW_RIR_DATA", "GEOINFO", "TCP_PORT_OPEN",
                 "OPERATING_SYSTEM", "SOFTWARE_USED", "WEBSERVER_BANNER",
-                "LEAKSITE_CONTENT", "INTERNET_NAME"]
+                "LEAKSITE_CONTENT", "INTERNET_NAME"])
 
     # Query host
     # https://leakix.net/api-documentation

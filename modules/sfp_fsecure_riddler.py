@@ -13,6 +13,7 @@
 import json
 import time
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -70,15 +71,15 @@ class sfp_fsecure_riddler(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['DOMAIN_NAME', 'INTERNET_NAME',
-                'INTERNET_NAME_UNRESOLVED', 'IP_ADDRESS']
+        return filteredEvents(['DOMAIN_NAME', 'INTERNET_NAME',
+                'INTERNET_NAME_UNRESOLVED', 'IP_ADDRESS'])
 
     def producedEvents(self):
-        return ['INTERNET_NAME', 'AFFILIATE_INTERNET_NAME',
+        return filteredEvents(['INTERNET_NAME', 'AFFILIATE_INTERNET_NAME',
                 'INTERNET_NAME_UNRESOLVED', 'AFFILIATE_INTERNET_NAME_UNRESOLVED',
                 'DOMAIN_NAME', 'AFFILIATE_DOMAIN_NAME',
                 'IP_ADDRESS',
-                'PHYSICAL_COORDINATES', 'RAW_RIR_DATA']
+                'PHYSICAL_COORDINATES', 'RAW_RIR_DATA'])
 
     # https://riddler.io/help/api
     def login(self):

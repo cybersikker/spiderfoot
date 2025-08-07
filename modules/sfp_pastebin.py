@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_pastebin(SpiderFootPlugin):
@@ -76,13 +77,13 @@ class sfp_pastebin(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "INTERNET_NAME", "EMAILADDR"]
+        return filteredEvents(["DOMAIN_NAME", "INTERNET_NAME", "EMAILADDR"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["LEAKSITE_CONTENT", "LEAKSITE_URL"]
+        return filteredEvents(["LEAKSITE_CONTENT", "LEAKSITE_URL"])
 
     def handleEvent(self, event):
         eventData = event.data

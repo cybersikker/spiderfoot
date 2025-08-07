@@ -18,6 +18,7 @@ import dns.rdatatype
 import dns.resolver
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnsraw(SpiderFootPlugin):
@@ -54,15 +55,15 @@ class sfp_dnsraw(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['INTERNET_NAME', 'DOMAIN_NAME', 'DOMAIN_NAME_PARENT']
+        return filteredEvents(['INTERNET_NAME', 'DOMAIN_NAME', 'DOMAIN_NAME_PARENT'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["PROVIDER_MAIL", "PROVIDER_DNS", "RAW_DNS_RECORDS", "DNS_TEXT", "DNS_SPF",
+        return filteredEvents(["PROVIDER_MAIL", "PROVIDER_DNS", "RAW_DNS_RECORDS", "DNS_TEXT", "DNS_SPF",
                 'INTERNET_NAME', 'INTERNET_NAME_UNRESOLVED',
-                'AFFILIATE_INTERNET_NAME', 'AFFILIATE_INTERNET_NAME_UNRESOLVED']
+                'AFFILIATE_INTERNET_NAME', 'AFFILIATE_INTERNET_NAME_UNRESOLVED'])
 
     # Handle events sent to this module
     def handleEvent(self, event):

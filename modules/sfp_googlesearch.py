@@ -11,6 +11,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_googlesearch(SpiderFootPlugin):
@@ -71,13 +72,13 @@ class sfp_googlesearch(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["LINKED_URL_INTERNAL", "RAW_RIR_DATA"]
+        return filteredEvents(["LINKED_URL_INTERNAL", "RAW_RIR_DATA"])
 
     def handleEvent(self, event):
         eventName = event.eventType

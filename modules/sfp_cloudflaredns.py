@@ -14,7 +14,7 @@
 import dns.resolver
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_cloudflaredns(SpiderFootPlugin):
 
@@ -55,21 +55,21 @@ class sfp_cloudflaredns(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "AFFILIATE_INTERNET_NAME",
             "CO_HOSTED_SITE"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_INTERNET_NAME",
             "BLACKLISTED_AFFILIATE_INTERNET_NAME",
             "BLACKLISTED_COHOST",
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST",
-        ]
+        ])
 
     def queryFamilyDNS(self, qaddr):
         res = dns.resolver.Resolver()

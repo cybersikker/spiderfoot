@@ -14,6 +14,7 @@
 import adblockparser
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_adblock(SpiderFootPlugin):
@@ -72,11 +73,11 @@ class sfp_adblock(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL", "LINKED_URL_EXTERNAL", "PROVIDER_JAVASCRIPT"]
+        return filteredEvents(["LINKED_URL_INTERNAL", "LINKED_URL_EXTERNAL", "PROVIDER_JAVASCRIPT"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["URL_ADBLOCKED_INTERNAL", "URL_ADBLOCKED_EXTERNAL"]
+        return filteredEvents(["URL_ADBLOCKED_INTERNAL", "URL_ADBLOCKED_EXTERNAL"])
 
     def retrieveBlocklist(self, blocklist_url):
         if not blocklist_url:

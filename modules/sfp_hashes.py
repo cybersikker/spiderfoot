@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hashes(SpiderFootPlugin):
@@ -41,15 +42,15 @@ class sfp_hashes(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT", "BASE64_DATA",
+        return filteredEvents(["TARGET_WEB_CONTENT", "BASE64_DATA",
                 "LEAKSITE_CONTENT", "RAW_DNS_RECORDS",
-                "RAW_FILE_META_DATA"]
+                "RAW_FILE_META_DATA"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["HASH"]
+        return filteredEvents(["HASH"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_textmagic(SpiderFootPlugin):
@@ -63,15 +64,15 @@ class sfp_textmagic(SpiderFootPlugin):
         self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "PHONE_NUMBER"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "PHONE_NUMBER_TYPE",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def handle_error_response(self, qry, res):
         try:

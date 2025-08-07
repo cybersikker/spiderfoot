@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_c99(SpiderFootPlugin):
@@ -69,16 +70,16 @@ class sfp_c99(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
             "PHONE_NUMBER",
             "IP_ADDRESS",
             "USERNAME",
             "EMAILADDR",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "GEOINFO",
             "INTERNET_NAME",
@@ -93,7 +94,7 @@ class sfp_c99(SpiderFootPlugin):
             "WEBSERVER_TECHNOLOGY",
             "PROVIDER_HOSTING",
             "CO_HOSTED_SITE"
-        ]
+        ])
 
     def query(self, path, queryParam, queryData):
         res = self.sf.fetchUrl(

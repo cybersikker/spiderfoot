@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_arin(SpiderFootPlugin):
@@ -65,13 +66,13 @@ class sfp_arin(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['DOMAIN_NAME', 'HUMAN_NAME']
+        return filteredEvents(['DOMAIN_NAME', 'HUMAN_NAME'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "HUMAN_NAME"]
+        return filteredEvents(["RAW_RIR_DATA", "HUMAN_NAME"])
 
     # Fetch content and notify of the raw data
     def fetchRir(self, url):

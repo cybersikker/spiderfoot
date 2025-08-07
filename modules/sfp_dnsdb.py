@@ -15,7 +15,7 @@ import re
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_dnsdb(SpiderFootPlugin):
     meta = {
@@ -76,11 +76,11 @@ class sfp_dnsdb(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS", "DOMAIN_NAME"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS", "DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "INTERNET_NAME",
             "INTERNET_NAME_UNRESOLVED",
@@ -90,7 +90,7 @@ class sfp_dnsdb(SpiderFootPlugin):
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "CO_HOSTED_SITE",
-        ]
+        ])
 
     def query(self, endpoint, queryType, query):
         if endpoint not in ("rrset", "rdata"):

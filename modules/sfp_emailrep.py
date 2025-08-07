@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_emailrep(SpiderFootPlugin):
@@ -66,10 +67,10 @@ class sfp_emailrep(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['EMAILADDR']
+        return filteredEvents(['EMAILADDR'])
 
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'EMAILADDR_COMPROMISED', 'MALICIOUS_EMAILADDR']
+        return filteredEvents(['RAW_RIR_DATA', 'EMAILADDR_COMPROMISED', 'MALICIOUS_EMAILADDR'])
 
     # https://emailrep.io/docs/
     def query(self, qry):

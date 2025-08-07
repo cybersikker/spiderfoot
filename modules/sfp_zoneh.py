@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_zoneh(SpiderFootPlugin):
@@ -74,17 +75,17 @@ class sfp_zoneh(SpiderFootPlugin):
     # What events is this module interested in for input
     # * = be notified about all events.
     def watchedEvents(self):
-        return ["INTERNET_NAME", "IP_ADDRESS", "IPV6_ADDRESS",
+        return filteredEvents(["INTERNET_NAME", "IP_ADDRESS", "IPV6_ADDRESS",
                 "AFFILIATE_INTERNET_NAME", "AFFILIATE_IPADDR", "AFFILIATE_IPV6_ADDRESS",
-                "CO_HOSTED_SITE"]
+                "CO_HOSTED_SITE"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["DEFACED_INTERNET_NAME", "DEFACED_IPADDR",
+        return filteredEvents(["DEFACED_INTERNET_NAME", "DEFACED_IPADDR",
                 "DEFACED_AFFILIATE_INTERNET_NAME",
-                "DEFACED_COHOST", "DEFACED_AFFILIATE_IPADDR"]
+                "DEFACED_COHOST", "DEFACED_AFFILIATE_IPADDR"])
 
     def lookupItem(self, target, content):
         grps = re.findall(r"<title><\!\[CDATA\[(.[^\]]*)\]\]></title>\s+<link><\!\[CDATA\[(.[^\]]*)\]\]></link>", content)

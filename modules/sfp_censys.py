@@ -21,6 +21,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_censys(SpiderFootPlugin):
@@ -86,15 +87,15 @@ class sfp_censys(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BGP_AS_MEMBER",
             "UDP_PORT_OPEN",
             "TCP_PORT_OPEN",
@@ -106,7 +107,7 @@ class sfp_censys(SpiderFootPlugin):
             "NETBLOCKV6_MEMBER",
             "GEOINFO",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def queryHosts(self, qry):
         secret = self.opts['censys_api_key_uid'] + ':' + self.opts['censys_api_key_secret']

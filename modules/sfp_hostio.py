@@ -12,6 +12,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hostio(SpiderFootPlugin):
@@ -59,13 +60,13 @@ class sfp_hostio(SpiderFootPlugin):
         self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "RAW_RIR_DATA",
             "EMAILADDR",
@@ -74,7 +75,7 @@ class sfp_hostio(SpiderFootPlugin):
             "PHYSICAL_COORDINATES",
             "DESCRIPTION_ABSTRACT",
             "GEOINFO",
-        ]
+        ])
 
     # When querying third parties, it's best to have a dedicated function
     # to do so and avoid putting it in handleEvent()

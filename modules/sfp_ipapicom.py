@@ -15,6 +15,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ipapicom(SpiderFootPlugin):
@@ -67,19 +68,19 @@ class sfp_ipapicom(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS"
-        ]
+        ])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "GEOINFO",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def query(self, qry):
         queryString = f"http://api.ipapi.com/api/{qry}?access_key={self.opts['api_key']}"

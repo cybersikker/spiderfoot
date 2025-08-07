@@ -13,6 +13,7 @@
 
 import json
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -56,13 +57,13 @@ class sfp_github(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "USERNAME", "SOCIAL_MEDIA"]
+        return filteredEvents(["DOMAIN_NAME", "USERNAME", "SOCIAL_MEDIA"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "GEOINFO", "PUBLIC_CODE_REPO"]
+        return filteredEvents(["RAW_RIR_DATA", "GEOINFO", "PUBLIC_CODE_REPO"])
 
     # Build up repo info for use as an event
     def buildRepoInfo(self, item):

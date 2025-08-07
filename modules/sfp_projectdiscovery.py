@@ -13,7 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_projectdiscovery(SpiderFootPlugin):
     meta = {
@@ -65,10 +65,10 @@ class sfp_projectdiscovery(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["RAW_RIR_DATA", "INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"])
 
     def query(self, qry):
         headers = {"Accept": "application/json", "Authorization": self.opts["api_key"]}

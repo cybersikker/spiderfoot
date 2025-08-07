@@ -19,6 +19,7 @@ import urllib.request
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_phishstats(SpiderFootPlugin):
@@ -68,15 +69,15 @@ class sfp_phishstats(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             "NETBLOCK_MEMBER",
             "NETBLOCK_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -86,7 +87,7 @@ class sfp_phishstats(SpiderFootPlugin):
             "MALICIOUS_NETBLOCK",
             "MALICIOUS_SUBNET",
             "RAW_RIR_DATA",
-        ]
+        ])
 
     # Check whether the IP address is malicious using PhishStats API
     # https://phishstats.info/

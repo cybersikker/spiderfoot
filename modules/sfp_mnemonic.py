@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_mnemonic(SpiderFootPlugin):
@@ -81,22 +82,22 @@ class sfp_mnemonic(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'IPV6_ADDRESS',
             'INTERNET_NAME',
             'DOMAIN_NAME'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'IPV6_ADDRESS',
             'INTERNAL_IP_ADDRESS',
             'CO_HOSTED_SITE',
             'INTERNET_NAME',
             'DOMAIN_NAME'
-        ]
+        ])
 
     def query(self, qry, limit=500, offset=0):
         """Query the Mnemonic PassiveDNS v3 API.

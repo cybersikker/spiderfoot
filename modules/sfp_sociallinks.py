@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_sociallinks(SpiderFootPlugin):
@@ -62,17 +63,17 @@ class sfp_sociallinks(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "USERNAME",
             "EMAILADDR",
             "PHONE_NUMBER"
-        ]
+        ])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "GEOINFO",
             "SOCIAL_MEDIA",
             "HUMAN_NAME",
@@ -81,7 +82,7 @@ class sfp_sociallinks(SpiderFootPlugin):
             "PHONE_NUMBER",
             "ACCOUNT_EXTERNAL_OWNED",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def query(self, queryString):
         headers = {

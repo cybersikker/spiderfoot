@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hybrid_analysis(SpiderFootPlugin):
@@ -71,10 +72,10 @@ class sfp_hybrid_analysis(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["IP_ADDRESS", "DOMAIN_NAME"]
+        return filteredEvents(["IP_ADDRESS", "DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "INTERNET_NAME", "DOMAIN_NAME", "LINKED_URL_INTERNAL"]
+        return filteredEvents(["RAW_RIR_DATA", "INTERNET_NAME", "DOMAIN_NAME", "LINKED_URL_INTERNAL"])
 
     def queryDomain(self, qry):
         """Query a domain

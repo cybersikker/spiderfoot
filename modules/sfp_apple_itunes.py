@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_apple_itunes(SpiderFootPlugin):
@@ -53,18 +54,18 @@ class sfp_apple_itunes(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'DOMAIN_NAME'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'APPSTORE_ENTRY',
             'INTERNET_NAME',
             'LINKED_URL_INTERNAL',
             'AFFILIATE_INTERNET_NAME',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     def query(self, qry, limit=100):
         params = urllib.parse.urlencode({

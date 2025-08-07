@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_creditcard(SpiderFootPlugin):
@@ -44,11 +45,11 @@ class sfp_creditcard(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DARKNET_MENTION_CONTENT", "LEAKSITE_CONTENT"]
+        return filteredEvents(["DARKNET_MENTION_CONTENT", "LEAKSITE_CONTENT"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["CREDIT_CARD_NUMBER"]
+        return filteredEvents(["CREDIT_CARD_NUMBER"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

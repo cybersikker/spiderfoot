@@ -15,6 +15,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_spider(SpiderFootPlugin):
@@ -85,18 +86,18 @@ class sfp_spider(SpiderFootPlugin):
 
     # Search engines and DNS lookups provide INTERNET_NAME.
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL", "INTERNET_NAME"]
+        return filteredEvents(["LINKED_URL_INTERNAL", "INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "WEBSERVER_HTTPHEADERS",
             "HTTP_CODE",
             "LINKED_URL_INTERNAL",
             "LINKED_URL_EXTERNAL",
             "TARGET_WEB_CONTENT",
             "TARGET_WEB_CONTENT_TYPE"
-        ]
+        ])
 
     def processUrl(self, url: str) -> dict:
         """Fetch data from a URL and obtain all links that should be followed.

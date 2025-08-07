@@ -15,6 +15,7 @@ import json
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ripe(SpiderFootPlugin):
@@ -68,7 +69,7 @@ class sfp_ripe(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'IPV6_ADDRESS',
             'NETBLOCK_MEMBER',
@@ -77,11 +78,11 @@ class sfp_ripe(SpiderFootPlugin):
             'NETBLOCKV6_OWNER',
             'BGP_AS_OWNER',
             'BGP_AS_MEMBER',
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'NETBLOCK_MEMBER',
             'NETBLOCK_OWNER',
             'NETBLOCKV6_MEMBER',
@@ -89,7 +90,7 @@ class sfp_ripe(SpiderFootPlugin):
             'BGP_AS_MEMBER',
             'BGP_AS_OWNER',
             'RAW_RIR_DATA',
-        ]
+        ])
 
     # Fetch content and notify of the raw data
     def fetchRir(self, url):

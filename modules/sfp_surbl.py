@@ -14,6 +14,7 @@
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_surbl(SpiderFootPlugin):
@@ -67,7 +68,7 @@ class sfp_surbl(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             'NETBLOCK_OWNER',
@@ -75,10 +76,10 @@ class sfp_surbl(SpiderFootPlugin):
             'INTERNET_NAME',
             'AFFILIATE_INTERNET_NAME',
             'CO_HOSTED_SITE',
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -93,7 +94,7 @@ class sfp_surbl(SpiderFootPlugin):
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST",
-        ]
+        ])
 
     # Swap 1.2.3.4 to 4.3.2.1
     def reverseAddr(self, ipaddr):

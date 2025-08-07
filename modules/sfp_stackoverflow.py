@@ -15,6 +15,7 @@ import re
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_stackoverflow(SpiderFootPlugin):
@@ -71,11 +72,11 @@ class sfp_stackoverflow(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "EMAILADDR",
             "AFFILIATE_EMAILADDR",
@@ -83,7 +84,7 @@ class sfp_stackoverflow(SpiderFootPlugin):
             "AFFILIATE_IPADDR",
             "AFFILIATE_IPV6_ADDRESS",
             "HUMAN_NAME"
-        ]
+        ])
 
     def query(self, qry, qryType):
         # The StackOverflow excerpts endpoint will search the site for mentions of a keyword and returns a snippet of relevant results

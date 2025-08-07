@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_debounce(SpiderFootPlugin):
@@ -56,15 +57,15 @@ class sfp_debounce(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "EMAILADDR"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "EMAILADDR_DISPOSABLE",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def queryEmailAddr(self, qry):
         res = self.sf.fetchUrl(

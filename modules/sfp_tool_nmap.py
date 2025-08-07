@@ -16,6 +16,7 @@ from subprocess import PIPE, Popen
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_nmap(SpiderFootPlugin):
@@ -66,13 +67,13 @@ class sfp_tool_nmap(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'NETBLOCK_OWNER']
+        return filteredEvents(['IP_ADDRESS', 'NETBLOCK_OWNER'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["OPERATING_SYSTEM", "IP_ADDRESS"]
+        return filteredEvents(["OPERATING_SYSTEM", "IP_ADDRESS"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

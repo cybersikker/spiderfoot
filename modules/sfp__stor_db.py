@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp__stor_db(SpiderFootPlugin):
@@ -44,7 +45,7 @@ class sfp__stor_db(SpiderFootPlugin):
     # Because this is a storage plugin, we are interested in everything so we
     # can store all events for later analysis.
     def watchedEvents(self):
-        return ["*"]
+        return filteredEvents(["*"])
 
     # Handle events sent to this module
     def handleEvent(self, sfEvent):

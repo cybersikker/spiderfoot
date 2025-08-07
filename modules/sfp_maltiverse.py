@@ -17,6 +17,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_maltiverse(SpiderFootPlugin):
@@ -74,13 +75,13 @@ class sfp_maltiverse(SpiderFootPlugin):
     # What events is this module interested in for input
     # For a list of all events, check sfdb.py.
     def watchedEvents(self):
-        return ["IP_ADDRESS", "NETBLOCK_OWNER", "NETBLOCK_MEMBER",
-                "AFFILIATE_IPADDR"]
+        return filteredEvents(["IP_ADDRESS", "NETBLOCK_OWNER", "NETBLOCK_MEMBER",
+                "AFFILIATE_IPADDR"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["IP_ADDRESS", "MALICIOUS_IPADDR", "RAW_RIR_DATA",
-                "MALICIOUS_AFFILIATE_IPADDR"]
+        return filteredEvents(["IP_ADDRESS", "MALICIOUS_IPADDR", "RAW_RIR_DATA",
+                "MALICIOUS_AFFILIATE_IPADDR"])
 
     # Check whether the IP Address is malicious using Maltiverse API
     # https://app.swaggerhub.com/apis-docs/maltiverse/api/1.0.0-oas3#/IPv4/getIP

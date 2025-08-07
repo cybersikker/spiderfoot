@@ -20,6 +20,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_alienvault(SpiderFootPlugin):
@@ -114,7 +115,7 @@ class sfp_alienvault(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "IP_ADDRESS",
             "IPV6_ADDRESS",
@@ -126,11 +127,11 @@ class sfp_alienvault(SpiderFootPlugin):
             "NETBLOCKV6_MEMBER",
             "NETBLOCK_OWNER",
             "NETBLOCK_MEMBER",
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
@@ -142,7 +143,7 @@ class sfp_alienvault(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_NETBLOCK",
             "LINKED_URL_INTERNAL"
-        ]
+        ])
 
     # Parse API response
     def parseApiResponse(self, res: dict):

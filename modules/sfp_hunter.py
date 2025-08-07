@@ -15,6 +15,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hunter(SpiderFootPlugin):
@@ -76,11 +77,11 @@ class sfp_hunter(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "INTERNET_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC", "RAW_RIR_DATA"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC", "RAW_RIR_DATA"])
 
     def query(self, qry, offset=0, limit=10):
         params = {

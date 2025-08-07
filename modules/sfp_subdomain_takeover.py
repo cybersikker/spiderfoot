@@ -15,6 +15,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_subdomain_takeover(SpiderFootPlugin):
@@ -70,11 +71,11 @@ class sfp_subdomain_takeover(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["AFFILIATE_INTERNET_NAME", "AFFILIATE_INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["AFFILIATE_INTERNET_NAME", "AFFILIATE_INTERNET_NAME_UNRESOLVED"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["AFFILIATE_INTERNET_NAME_HIJACKABLE"]
+        return filteredEvents(["AFFILIATE_INTERNET_NAME_HIJACKABLE"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

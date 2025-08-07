@@ -16,6 +16,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -83,11 +84,11 @@ class sfp_wigle(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["PHYSICAL_COORDINATES"]
+        return filteredEvents(["PHYSICAL_COORDINATES"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["WIFI_ACCESS_POINT"]
+        return filteredEvents(["WIFI_ACCESS_POINT"])
 
     def getnetworks(self, coords):
         params = {

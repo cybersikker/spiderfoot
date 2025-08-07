@@ -12,6 +12,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_twitter(SpiderFootPlugin):
@@ -52,11 +53,11 @@ class sfp_twitter(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["SOCIAL_MEDIA"]
+        return filteredEvents(["SOCIAL_MEDIA"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "GEOINFO"]
+        return filteredEvents(["RAW_RIR_DATA", "GEOINFO"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

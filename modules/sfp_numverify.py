@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_numverify(SpiderFootPlugin):
@@ -73,11 +74,11 @@ class sfp_numverify(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['PHONE_NUMBER']
+        return filteredEvents(['PHONE_NUMBER'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'GEOINFO', 'PROVIDER_TELCO']
+        return filteredEvents(['RAW_RIR_DATA', 'GEOINFO', 'PROVIDER_TELCO'])
 
     # Query numverify API for the specified phone number
     # https://numverify.com/documentation

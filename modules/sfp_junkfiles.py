@@ -13,6 +13,7 @@
 import random
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_junkfiles(SpiderFootPlugin):
@@ -60,13 +61,13 @@ class sfp_junkfiles(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL"]
+        return filteredEvents(["LINKED_URL_INTERNAL"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["JUNK_FILE"]
+        return filteredEvents(["JUNK_FILE"])
 
     # Test how trustworthy a result is
     def checkValidity(self, junkUrl):

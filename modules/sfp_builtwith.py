@@ -13,6 +13,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_builtwith(SpiderFootPlugin):
@@ -80,13 +81,13 @@ class sfp_builtwith(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["INTERNET_NAME", "EMAILADDR", "EMAILADDR_GENERIC", "RAW_RIR_DATA",
+        return filteredEvents(["INTERNET_NAME", "EMAILADDR", "EMAILADDR_GENERIC", "RAW_RIR_DATA",
                 "WEBSERVER_TECHNOLOGY", "PHONE_NUMBER", "DOMAIN_NAME",
-                "CO_HOSTED_SITE", "IP_ADDRESS", "WEB_ANALYTICS_ID"]
+                "CO_HOSTED_SITE", "IP_ADDRESS", "WEB_ANALYTICS_ID"])
 
     def queryRelationships(self, t):
         url = f"https://api.builtwith.com/rv1/api.json?LOOKUP={t}&KEY={self.opts['api_key']}"

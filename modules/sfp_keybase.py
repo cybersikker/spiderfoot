@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_keybase(SpiderFootPlugin):
@@ -59,13 +60,13 @@ class sfp_keybase(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["USERNAME", "LINKED_URL_EXTERNAL", "DOMAIN_NAME"]
+        return filteredEvents(["USERNAME", "LINKED_URL_EXTERNAL", "DOMAIN_NAME"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA", "SOCIAL_MEDIA", "USERNAME",
             "GEOINFO", "BITCOIN_ADDRESS", "PGP_KEY"
-        ]
+        ])
 
     def query(self, selector: str, qry: str) -> str:
         """Search Keybase for a domain name or username.

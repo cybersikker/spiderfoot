@@ -16,6 +16,7 @@ import time
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_robtex(SpiderFootPlugin):
@@ -82,18 +83,18 @@ class sfp_robtex(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
             "NETBLOCK_MEMBER",
             "NETBLOCKV6_MEMBER",
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return ["CO_HOSTED_SITE", "IP_ADDRESS", "IPV6_ADDRESS", "RAW_RIR_DATA"]
+        return filteredEvents(["CO_HOSTED_SITE", "IP_ADDRESS", "IPV6_ADDRESS", "RAW_RIR_DATA"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

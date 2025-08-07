@@ -15,6 +15,7 @@
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_spamcop(SpiderFootPlugin):
@@ -66,15 +67,15 @@ class sfp_spamcop(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             'NETBLOCK_OWNER',
             'NETBLOCK_MEMBER'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -83,7 +84,7 @@ class sfp_spamcop(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_NETBLOCK",
             "MALICIOUS_SUBNET",
-        ]
+        ])
 
     # Swap 1.2.3.4 to 4.3.2.1
     def reverseAddr(self, ipaddr):

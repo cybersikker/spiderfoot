@@ -19,6 +19,7 @@ import urllib.request
 from html.parser import HTMLParser
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_wikipediaedits(SpiderFootPlugin):
@@ -63,10 +64,10 @@ class sfp_wikipediaedits(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["IP_ADDRESS", "USERNAME"]
+        return filteredEvents(["IP_ADDRESS", "USERNAME"])
 
     def producedEvents(self):
-        return ["WIKIPEDIA_PAGE_EDIT"]
+        return filteredEvents(["WIKIPEDIA_PAGE_EDIT"])
 
     def query(self, qry):
         params = {

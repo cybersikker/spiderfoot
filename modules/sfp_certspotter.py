@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_certspotter(SpiderFootPlugin):
@@ -75,11 +76,11 @@ class sfp_certspotter(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['DOMAIN_NAME']
+        return filteredEvents(['DOMAIN_NAME'])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'INTERNET_NAME',
             'INTERNET_NAME_UNRESOLVED',
             'DOMAIN_NAME',
@@ -92,7 +93,7 @@ class sfp_certspotter(SpiderFootPlugin):
             'SSL_CERTIFICATE_EXPIRING',
             'SSL_CERTIFICATE_RAW',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     # Query CertSpotter issuances API endpoint
     def queryIssuances(self, domain, after=None):

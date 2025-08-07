@@ -16,6 +16,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_viewdns(SpiderFootPlugin):
@@ -74,18 +75,18 @@ class sfp_viewdns(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "EMAILADDR",
             "IP_ADDRESS",
             "PROVIDER_DNS"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'AFFILIATE_INTERNET_NAME',
             'AFFILIATE_DOMAIN_NAME',
             'CO_HOSTED_SITE'
-        ]
+        ])
 
     def query(self, qry, querytype, page=1):
         if querytype == "reverseip":

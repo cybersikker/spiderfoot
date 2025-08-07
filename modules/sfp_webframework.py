@@ -13,6 +13,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 regexps = dict({
     "jQuery": list(['jquery']),  # unlikely false positive
@@ -61,13 +62,13 @@ class sfp_webframework(SpiderFootPlugin):
     # What events is this module interested in for input
     # * = be notified about all events.
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT"]
+        return filteredEvents(["TARGET_WEB_CONTENT"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["URL_WEB_FRAMEWORK"]
+        return filteredEvents(["URL_WEB_FRAMEWORK"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

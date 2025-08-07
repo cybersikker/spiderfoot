@@ -18,6 +18,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_fraudguard(SpiderFootPlugin):
@@ -91,7 +92,7 @@ class sfp_fraudguard(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
@@ -100,16 +101,16 @@ class sfp_fraudguard(SpiderFootPlugin):
             "NETBLOCKV6_MEMBER",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "GEOINFO",
             "MALICIOUS_IPADDR",
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_SUBNET",
             "MALICIOUS_NETBLOCK"
-        ]
+        ])
 
     def query(self, qry):
         """Query IP address

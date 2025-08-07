@@ -16,6 +16,7 @@ import re
 from bs4 import BeautifulSoup
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_emailformat(SpiderFootPlugin):
@@ -56,10 +57,10 @@ class sfp_emailformat(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME', "DOMAIN_NAME"]
+        return filteredEvents(['INTERNET_NAME', "DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC"])
 
     def handleEvent(self, event):
         eventName = event.eventType

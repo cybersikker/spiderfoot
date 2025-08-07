@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dehashed(SpiderFootPlugin):
@@ -77,20 +78,20 @@ class sfp_dehashed(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
             "EMAILADDR"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'EMAILADDR',
             'EMAILADDR_COMPROMISED',
             'PASSWORD_COMPROMISED',
             'HASH_COMPROMISED',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     # Query Dehashed
     def query(self, event, per_page, start):

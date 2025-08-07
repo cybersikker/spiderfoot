@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ethereum(SpiderFootPlugin):
@@ -41,13 +42,13 @@ class sfp_ethereum(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT"]
+        return filteredEvents(["TARGET_WEB_CONTENT"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["ETHEREUM_ADDRESS"]
+        return filteredEvents(["ETHEREUM_ADDRESS"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

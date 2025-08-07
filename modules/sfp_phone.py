@@ -17,6 +17,7 @@ from phonenumbers import carrier
 
 # from phonenumbers import geocoder
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_phone(SpiderFootPlugin):
@@ -42,10 +43,10 @@ class sfp_phone(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['TARGET_WEB_CONTENT', 'DOMAIN_WHOIS', 'NETBLOCK_WHOIS', 'PHONE_NUMBER']
+        return filteredEvents(['TARGET_WEB_CONTENT', 'DOMAIN_WHOIS', 'NETBLOCK_WHOIS', 'PHONE_NUMBER'])
 
     def producedEvents(self):
-        return ['PHONE_NUMBER', 'PROVIDER_TELCO']
+        return filteredEvents(['PHONE_NUMBER', 'PROVIDER_TELCO'])
 
     def handleEvent(self, event):
         eventName = event.eventType

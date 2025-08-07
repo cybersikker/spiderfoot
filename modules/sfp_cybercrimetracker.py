@@ -11,6 +11,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_cybercrimetracker(SpiderFootPlugin):
@@ -61,16 +62,16 @@ class sfp_cybercrimetracker(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "IP_ADDRESS",
             "AFFILIATE_INTERNET_NAME",
             "AFFILIATE_IPADDR",
             "CO_HOSTED_SITE"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_INTERNET_NAME",
             "BLACKLISTED_AFFILIATE_IPADDR",
@@ -81,7 +82,7 @@ class sfp_cybercrimetracker(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST"
-        ]
+        ])
 
     def queryBlacklist(self, target):
         blacklist = self.retrieveBlacklist()

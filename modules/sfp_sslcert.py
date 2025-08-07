@@ -12,6 +12,7 @@
 
 from urllib.parse import urlparse
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin, SpiderFootHelpers
 
 
@@ -59,18 +60,18 @@ class sfp_sslcert(SpiderFootPlugin):
     # What events is this module interested in for input
     # * = be notified about all events.
     def watchedEvents(self):
-        return ["INTERNET_NAME", "LINKED_URL_INTERNAL", "IP_ADDRESS"]
+        return filteredEvents(["INTERNET_NAME", "LINKED_URL_INTERNAL", "IP_ADDRESS"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ['TCP_PORT_OPEN', 'INTERNET_NAME', 'INTERNET_NAME_UNRESOLVED',
+        return filteredEvents(['TCP_PORT_OPEN', 'INTERNET_NAME', 'INTERNET_NAME_UNRESOLVED',
                 'CO_HOSTED_SITE', 'CO_HOSTED_SITE_DOMAIN',
                 "SSL_CERTIFICATE_ISSUED", "SSL_CERTIFICATE_ISSUER",
                 "SSL_CERTIFICATE_MISMATCH", "SSL_CERTIFICATE_EXPIRED",
                 "SSL_CERTIFICATE_EXPIRING", "SSL_CERTIFICATE_RAW",
-                "DOMAIN_NAME"]
+                "DOMAIN_NAME"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

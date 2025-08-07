@@ -17,6 +17,7 @@ from shutil import which
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_dnstwist(SpiderFootPlugin):
@@ -66,13 +67,13 @@ class sfp_tool_dnstwist(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['DOMAIN_NAME']
+        return filteredEvents(['DOMAIN_NAME'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["SIMILARDOMAIN"]
+        return filteredEvents(["SIMILARDOMAIN"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

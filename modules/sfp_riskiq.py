@@ -14,6 +14,7 @@ import base64
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_riskiq(SpiderFootPlugin):
@@ -86,13 +87,13 @@ class sfp_riskiq(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME", "IP_ADDRESS", "DOMAIN_NAME", "EMAILADDR"]
+        return filteredEvents(["INTERNET_NAME", "IP_ADDRESS", "DOMAIN_NAME", "EMAILADDR"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["IP_ADDRESS", "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
+        return filteredEvents(["IP_ADDRESS", "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
                 "DOMAIN_NAME", "AFFILIATE_DOMAIN_NAME", "INTERNET_NAME_UNRESOLVED",
-                "CO_HOSTED_SITE", "NETBLOCK_OWNER"]
+                "CO_HOSTED_SITE", "NETBLOCK_OWNER"])
 
     def query(self, qry, qtype, opts=dict()):
         ret = None

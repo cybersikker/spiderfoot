@@ -15,6 +15,7 @@ import datetime
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_archiveorg(SpiderFootPlugin):
@@ -90,19 +91,19 @@ class sfp_archiveorg(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERESTING_FILE", "URL_PASSWORD", "URL_FORM", "URL_FLASH",
+        return filteredEvents(["INTERESTING_FILE", "URL_PASSWORD", "URL_FORM", "URL_FLASH",
                 "URL_STATIC", "URL_JAVA_APPLET", "URL_UPLOAD", "URL_JAVASCRIPT",
-                "URL_WEB_FRAMEWORK"]
+                "URL_WEB_FRAMEWORK"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["INTERESTING_FILE_HISTORIC", "URL_PASSWORD_HISTORIC",
+        return filteredEvents(["INTERESTING_FILE_HISTORIC", "URL_PASSWORD_HISTORIC",
                 "URL_FORM_HISTORIC", "URL_FLASH_HISTORIC",
                 "URL_STATIC_HISTORIC", "URL_JAVA_APPLET_HISTORIC",
                 "URL_UPLOAD_HISTORIC", "URL_WEB_FRAMEWORK_HISTORIC",
-                "URL_JAVASCRIPT_HISTORIC"]
+                "URL_JAVASCRIPT_HISTORIC"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

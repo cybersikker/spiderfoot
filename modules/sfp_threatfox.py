@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_threatfox(SpiderFootPlugin):
@@ -57,18 +58,18 @@ class sfp_threatfox(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "AFFILIATE_IPADDR"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "MALICIOUS_IPADDR",
             "MALICIOUS_AFFILIATE_IPADDR",
-        ]
+        ])
 
     def query(self, qry):
         """Query IOCs

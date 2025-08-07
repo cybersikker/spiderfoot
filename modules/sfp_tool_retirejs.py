@@ -18,6 +18,7 @@ import tempfile
 from subprocess import Popen, PIPE, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_retirejs(SpiderFootPlugin):
@@ -58,16 +59,16 @@ class sfp_tool_retirejs(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL", "LINKED_URL_EXTERNAL"]
+        return filteredEvents(["LINKED_URL_INTERNAL", "LINKED_URL_EXTERNAL"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "VULNERABILITY_CVE_CRITICAL",
             "VULNERABILITY_CVE_HIGH",
             "VULNERABILITY_CVE_MEDIUM",
             "VULNERABILITY_CVE_LOW",
             "VULNERABILITY_GENERAL"
-        ]
+        ])
 
     # Handle events sent to this module
     def handleEvent(self, event):

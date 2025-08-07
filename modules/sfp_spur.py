@@ -16,6 +16,7 @@ import json
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_spur(SpiderFootPlugin):
@@ -80,23 +81,23 @@ class sfp_spur(SpiderFootPlugin):
     # What events is this module interested in for input
     # For a list of all events, check sfdb.py.
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "NETBLOCK_OWNER",
             "NETBLOCK_MEMBER",
             "AFFILIATE_IPADDR"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "MALICIOUS_IPADDR",
             "RAW_RIR_DATA",
             "GEOINFO",
             "COMPANY_NAME",
             "MALICIOUS_AFFILIATE_IPADDR"
-        ]
+        ])
 
     # Check whether the IP Address is malicious using spur.us API
     # https://spur.us/app/docs

@@ -15,6 +15,7 @@ import time
 import urllib.parse
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_bitcoinabuse(SpiderFootPlugin):
@@ -66,13 +67,10 @@ class sfp_bitcoinabuse(SpiderFootPlugin):
             self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["BITCOIN_ADDRESS"]
+        return filteredEvents(["BITCOIN_ADDRESS"])
 
     def producedEvents(self):
-        return [
-            "MALICIOUS_BITCOIN_ADDRESS",
-            "RAW_RIR_DATA",
-        ]
+        return filteredEvents(["MALICIOUS_BITCOIN_ADDRESS", "RAW_RIR_DATA"])
 
     def queryAddress(self, address: str):
         params = {

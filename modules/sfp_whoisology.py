@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_whoisology(SpiderFootPlugin):
@@ -73,11 +74,11 @@ class sfp_whoisology(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["EMAILADDR"]
+        return filteredEvents(["EMAILADDR"])
 
     # What events this module produces
     def producedEvents(self):
-        return ['AFFILIATE_INTERNET_NAME', 'AFFILIATE_DOMAIN_NAME']
+        return filteredEvents(['AFFILIATE_INTERNET_NAME', 'AFFILIATE_DOMAIN_NAME'])
 
     # Search Whoisology
     def query(self, qry, querytype):

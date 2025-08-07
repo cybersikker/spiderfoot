@@ -15,6 +15,7 @@ import re
 from urllib.parse import urlencode
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_torch(SpiderFootPlugin):
@@ -59,17 +60,17 @@ class sfp_torch(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
             "HUMAN_NAME",
             "EMAILADDR"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "DARKNET_MENTION_URL",
             "DARKNET_MENTION_CONTENT"
-        ]
+        ])
 
     def handleEvent(self, event):
         eventName = event.eventType

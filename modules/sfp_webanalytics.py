@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_webanalytics(SpiderFootPlugin):
@@ -40,11 +41,11 @@ class sfp_webanalytics(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['TARGET_WEB_CONTENT', 'DNS_TEXT']
+        return filteredEvents(['TARGET_WEB_CONTENT', 'DNS_TEXT'])
 
     # What events this module produces
     def producedEvents(self):
-        return ["WEB_ANALYTICS_ID"]
+        return filteredEvents(["WEB_ANALYTICS_ID"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

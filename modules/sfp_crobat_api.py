@@ -16,6 +16,7 @@ import json
 import time
 import urllib
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -60,10 +61,10 @@ class sfp_crobat_api(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["RAW_RIR_DATA", "INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"])
 
     def queryDomain(self, qry, page=0):
         headers = {

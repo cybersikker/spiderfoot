@@ -13,6 +13,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 # Taken from Google Dorks on exploit-db.com
 regexps = dict({
@@ -61,13 +62,13 @@ class sfp_errors(SpiderFootPlugin):
     # What events is this module interested in for input
     # * = be notified about all events.
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT"]
+        return filteredEvents(["TARGET_WEB_CONTENT"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["ERROR_MESSAGE"]
+        return filteredEvents(["ERROR_MESSAGE"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

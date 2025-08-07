@@ -18,6 +18,7 @@ import urllib.request
 
 from netaddr import IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -84,17 +85,17 @@ class sfp_virustotal(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "AFFILIATE_IPADDR",
             "INTERNET_NAME",
             "CO_HOSTED_SITE",
             "NETBLOCK_OWNER",
             "NETBLOCK_MEMBER"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "MALICIOUS_IPADDR",
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_COHOST",
@@ -106,7 +107,7 @@ class sfp_virustotal(SpiderFootPlugin):
             "AFFILIATE_INTERNET_NAME",
             "INTERNET_NAME_UNRESOLVED",
             "DOMAIN_NAME"
-        ]
+        ])
 
     def queryIp(self, qry):
         params = urllib.parse.urlencode({

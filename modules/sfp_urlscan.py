@@ -16,6 +16,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_urlscan(SpiderFootPlugin):
@@ -64,13 +65,13 @@ class sfp_urlscan(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['INTERNET_NAME']
+        return filteredEvents(['INTERNET_NAME'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['GEOINFO', 'LINKED_URL_INTERNAL', 'RAW_RIR_DATA',
+        return filteredEvents(['GEOINFO', 'LINKED_URL_INTERNAL', 'RAW_RIR_DATA',
                 'DOMAIN_NAME', 'INTERNET_NAME', 'INTERNET_NAME_UNRESOLVED',
-                'BGP_AS_MEMBER', 'WEBSERVER_BANNER']
+                'BGP_AS_MEMBER', 'WEBSERVER_BANNER'])
 
     # https://urlscan.io/about-api/
     def query(self, qry):

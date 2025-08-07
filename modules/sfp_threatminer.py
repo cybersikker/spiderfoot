@@ -17,6 +17,7 @@ from datetime import datetime
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_threatminer(SpiderFootPlugin):
@@ -88,12 +89,12 @@ class sfp_threatminer(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "DOMAIN_NAME", "NETBLOCK_OWNER",
-                "NETBLOCK_MEMBER"]
+        return filteredEvents(["IP_ADDRESS", "DOMAIN_NAME", "NETBLOCK_OWNER",
+                "NETBLOCK_MEMBER"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["INTERNET_NAME", "CO_HOSTED_SITE"]
+        return filteredEvents(["INTERNET_NAME", "CO_HOSTED_SITE"])
 
     def query(self, qry, querytype):
         if self.sf.validIP(qry):

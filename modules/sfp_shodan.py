@@ -19,6 +19,7 @@ import urllib.request
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_shodan(SpiderFootPlugin):
@@ -77,16 +78,16 @@ class sfp_shodan(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "NETBLOCK_OWNER", "DOMAIN_NAME", "WEB_ANALYTICS_ID"]
+        return filteredEvents(["IP_ADDRESS", "NETBLOCK_OWNER", "DOMAIN_NAME", "WEB_ANALYTICS_ID"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["OPERATING_SYSTEM", "DEVICE_TYPE",
+        return filteredEvents(["OPERATING_SYSTEM", "DEVICE_TYPE",
                 "TCP_PORT_OPEN", "TCP_PORT_OPEN_BANNER",
                 'RAW_RIR_DATA', 'GEOINFO', 'IP_ADDRESS',
                 'VULNERABILITY_CVE_CRITICAL',
                 'VULNERABILITY_CVE_HIGH', 'VULNERABILITY_CVE_MEDIUM',
-                'VULNERABILITY_CVE_LOW', 'VULNERABILITY_GENERAL']
+                'VULNERABILITY_CVE_LOW', 'VULNERABILITY_GENERAL'])
 
     def queryHost(self, qry):
         res = self.sf.fetchUrl(

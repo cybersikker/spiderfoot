@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_duckduckgo(SpiderFootPlugin):
@@ -59,16 +60,16 @@ class sfp_duckduckgo(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "DOMAIN_NAME_PARENT",
-                "INTERNET_NAME", "AFFILIATE_INTERNET_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "DOMAIN_NAME_PARENT",
+                "INTERNET_NAME", "AFFILIATE_INTERNET_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["DESCRIPTION_CATEGORY", "DESCRIPTION_ABSTRACT",
+        return filteredEvents(["DESCRIPTION_CATEGORY", "DESCRIPTION_ABSTRACT",
                 "AFFILIATE_DESCRIPTION_CATEGORY",
-                "AFFILIATE_DESCRIPTION_ABSTRACT"]
+                "AFFILIATE_DESCRIPTION_ABSTRACT"])
 
     def handleEvent(self, event):
         eventName = event.eventType

@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_openstreetmap(SpiderFootPlugin):
@@ -59,11 +60,11 @@ class sfp_openstreetmap(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['PHYSICAL_ADDRESS']
+        return filteredEvents(['PHYSICAL_ADDRESS'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['PHYSICAL_COORDINATES']
+        return filteredEvents(['PHYSICAL_COORDINATES'])
 
     # Search for address
     # https://operations.osmfoundation.org/policies/nominatim/

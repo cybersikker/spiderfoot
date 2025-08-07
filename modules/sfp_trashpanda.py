@@ -15,6 +15,7 @@ import base64
 import json
 import re
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -65,21 +66,21 @@ class sfp_trashpanda(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
             "INTERNET_NAME",
             "EMAILADDR"
-        ]
+        ])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "LEAKSITE_CONTENT",
             "LEAKSITE_URL",
             "PASSWORD_COMPROMISED",
-        ]
+        ])
 
     def query(self, qry, eventName):
         secret = self.opts['api_key_username'] + ':' + self.opts['api_key_password']

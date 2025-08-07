@@ -13,7 +13,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_pgp(SpiderFootPlugin):
 
@@ -59,10 +59,10 @@ class sfp_pgp(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME', "EMAILADDR", "DOMAIN_NAME"]
+        return filteredEvents(['INTERNET_NAME', "EMAILADDR", "DOMAIN_NAME"])
 
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC", "AFFILIATE_EMAILADDR", "PGP_KEY"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC", "AFFILIATE_EMAILADDR", "PGP_KEY"])
 
     def queryDomain(self, keyserver_search_url, qry):
         res = self.sf.fetchUrl(

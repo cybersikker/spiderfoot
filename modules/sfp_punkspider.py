@@ -13,6 +13,7 @@ import hashlib
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_punkspider(SpiderFootPlugin):
@@ -58,11 +59,11 @@ class sfp_punkspider(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["VULNERABILITY_GENERAL"]
+        return filteredEvents(["VULNERABILITY_GENERAL"])
 
     def query(self, domain: str):
         domain_hash = hashlib.md5(domain.encode('utf-8', errors='replace').lower()).hexdigest()  # noqa: DUO130

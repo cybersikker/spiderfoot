@@ -19,6 +19,7 @@ from netaddr import IPNetwork
 from subprocess import Popen, PIPE, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_nuclei(SpiderFootPlugin):
@@ -69,10 +70,10 @@ class sfp_tool_nuclei(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["INTERNET_NAME", "IP_ADDRESS", "NETBLOCK_OWNER"]
+        return filteredEvents(["INTERNET_NAME", "IP_ADDRESS", "NETBLOCK_OWNER"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "VULNERABILITY_CVE_CRITICAL",
             "VULNERABILITY_CVE_HIGH",
             "VULNERABILITY_CVE_MEDIUM",
@@ -80,7 +81,7 @@ class sfp_tool_nuclei(SpiderFootPlugin):
             "IP_ADDRESS",
             "VULNERABILITY_GENERAL",
             "WEBSERVER_TECHNOLOGY"
-        ]
+        ])
 
     # Handle events sent to this module
     def handleEvent(self, event):

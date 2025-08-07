@@ -14,6 +14,7 @@
 import json
 import urllib
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -68,10 +69,10 @@ class sfp_opencorporates(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["COMPANY_NAME"]
+        return filteredEvents(["COMPANY_NAME"])
 
     def producedEvents(self):
-        return ["COMPANY_NAME", "PHYSICAL_ADDRESS", "RAW_RIR_DATA"]
+        return filteredEvents(["COMPANY_NAME", "PHYSICAL_ADDRESS", "RAW_RIR_DATA"])
 
     def searchCompany(self, qry):
         """Search for company name

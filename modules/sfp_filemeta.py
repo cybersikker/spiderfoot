@@ -23,6 +23,7 @@ import exifread
 import pptx
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_filemeta(SpiderFootPlugin):
@@ -59,13 +60,13 @@ class sfp_filemeta(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL", "INTERESTING_FILE"]
+        return filteredEvents(["LINKED_URL_INTERNAL", "INTERESTING_FILE"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["RAW_FILE_META_DATA", "SOFTWARE_USED"]
+        return filteredEvents(["RAW_FILE_META_DATA", "SOFTWARE_USED"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

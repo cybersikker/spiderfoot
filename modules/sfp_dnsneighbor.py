@@ -14,6 +14,7 @@
 import ipaddress
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnsneighbor(SpiderFootPlugin):
@@ -54,13 +55,13 @@ class sfp_dnsneighbor(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS']
+        return filteredEvents(['IP_ADDRESS'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["AFFILIATE_IPADDR", "IP_ADDRESS"]
+        return filteredEvents(["AFFILIATE_IPADDR", "IP_ADDRESS"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

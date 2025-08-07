@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp__stor_stdout(SpiderFootPlugin):
@@ -51,7 +52,7 @@ class sfp__stor_stdout(SpiderFootPlugin):
     # Because this is a storage plugin, we are interested in everything so we
     # can store all events for later analysis.
     def watchedEvents(self):
-        return ["*"]
+        return filteredEvents(["*"])
 
     def output(self, event):
         d = self.opts['_csvdelim']

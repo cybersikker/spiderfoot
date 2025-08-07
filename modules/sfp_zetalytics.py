@@ -14,6 +14,7 @@ import json
 from urllib.parse import urlencode
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_zetalytics(SpiderFootPlugin):
@@ -55,10 +56,10 @@ class sfp_zetalytics(SpiderFootPlugin):
             self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["INTERNET_NAME", "DOMAIN_NAME", "EMAILADDR"]
+        return filteredEvents(["INTERNET_NAME", "DOMAIN_NAME", "EMAILADDR"])
 
     def producedEvents(self):
-        return ["INTERNET_NAME", "AFFILIATE_DOMAIN_NAME", "INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["INTERNET_NAME", "AFFILIATE_DOMAIN_NAME", "INTERNET_NAME_UNRESOLVED"])
 
     def emit(self, etype, data, pevent):
         if self.checkForStop():

@@ -13,6 +13,7 @@ import json
 import re
 import time
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -71,11 +72,11 @@ class sfp_haveibeenpwned(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["EMAILADDR", "PHONE_NUMBER"]
+        return filteredEvents(["EMAILADDR", "PHONE_NUMBER"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["EMAILADDR_COMPROMISED", "PHONE_NUMBER_COMPROMISED", "LEAKSITE_CONTENT", "LEAKSITE_URL"]
+        return filteredEvents(["EMAILADDR_COMPROMISED", "PHONE_NUMBER_COMPROMISED", "LEAKSITE_CONTENT", "LEAKSITE_URL"])
 
     def query(self, qry):
         if self.opts['api_key']:

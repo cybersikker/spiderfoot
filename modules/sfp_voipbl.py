@@ -14,6 +14,7 @@
 from netaddr import IPAddress, IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_voipbl(SpiderFootPlugin):
@@ -64,15 +65,15 @@ class sfp_voipbl(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "AFFILIATE_IPADDR",
             "NETBLOCK_MEMBER",
             "NETBLOCK_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -81,7 +82,7 @@ class sfp_voipbl(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_SUBNET",
             "MALICIOUS_NETBLOCK",
-        ]
+        ])
 
     def queryBlacklist(self, target, targetType):
         blacklist = self.retrieveBlacklist()

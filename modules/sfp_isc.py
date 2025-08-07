@@ -13,6 +13,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_isc(SpiderFootPlugin):
@@ -68,20 +69,20 @@ class sfp_isc(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
             "AFFILIATE_IPV6_ADDRESS",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "MALICIOUS_IPADDR",
             "MALICIOUS_AFFILIATE_IPADDR",
-        ]
+        ])
 
     def query(self, ip):
         if not ip:

@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_webserver(SpiderFootPlugin):
@@ -42,12 +43,12 @@ class sfp_webserver(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["WEBSERVER_HTTPHEADERS"]
+        return filteredEvents(["WEBSERVER_HTTPHEADERS"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["WEBSERVER_BANNER", "WEBSERVER_TECHNOLOGY",
-                'LINKED_URL_INTERNAL', 'LINKED_URL_EXTERNAL']
+        return filteredEvents(["WEBSERVER_BANNER", "WEBSERVER_TECHNOLOGY",
+                'LINKED_URL_INTERNAL', 'LINKED_URL_EXTERNAL'])
 
     # Handle events sent to this module
     def handleEvent(self, event):

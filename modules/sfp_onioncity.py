@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_onioncity(SpiderFootPlugin):
@@ -75,14 +76,14 @@ class sfp_onioncity(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME", "DOMAIN_NAME"]
+        return filteredEvents(["INTERNET_NAME", "DOMAIN_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["DARKNET_MENTION_URL", "DARKNET_MENTION_CONTENT",
-                "RAW_RIR_DATA"]
+        return filteredEvents(["DARKNET_MENTION_URL", "DARKNET_MENTION_CONTENT",
+                "RAW_RIR_DATA"])
 
     def handleEvent(self, event):
         eventName = event.eventType

@@ -18,6 +18,7 @@ import time
 import dns.resolver
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tldsearch(SpiderFootPlugin):
@@ -62,13 +63,13 @@ class sfp_tldsearch(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["SIMILARDOMAIN"]
+        return filteredEvents(["SIMILARDOMAIN"])
 
     def tryTld(self, target, tld):
         resolver = dns.resolver.Resolver()

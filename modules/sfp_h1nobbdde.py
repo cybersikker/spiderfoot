@@ -12,6 +12,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_h1nobbdde(SpiderFootPlugin):
@@ -59,11 +60,11 @@ class sfp_h1nobbdde(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["VULNERABILITY_DISCLOSURE"]
+        return filteredEvents(["VULNERABILITY_DISCLOSURE"])
 
     # Query h1.nobbd.de
     def queryOBB(self, qry):

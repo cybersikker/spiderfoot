@@ -13,6 +13,7 @@
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_bingsharedip(SpiderFootPlugin):
@@ -76,13 +77,13 @@ class sfp_bingsharedip(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "NETBLOCK_OWNER"]
+        return filteredEvents(["IP_ADDRESS", "NETBLOCK_OWNER"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["CO_HOSTED_SITE", "IP_ADDRESS", "RAW_RIR_DATA"]
+        return filteredEvents(["CO_HOSTED_SITE", "IP_ADDRESS", "RAW_RIR_DATA"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

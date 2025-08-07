@@ -16,6 +16,7 @@ import time
 import urllib.parse
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_crt(SpiderFootPlugin):
@@ -63,10 +64,10 @@ class sfp_crt(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['DOMAIN_NAME', 'INTERNET_NAME']
+        return filteredEvents(['DOMAIN_NAME', 'INTERNET_NAME'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "SSL_CERTIFICATE_RAW",
             "RAW_RIR_DATA",
             "INTERNET_NAME",
@@ -74,7 +75,7 @@ class sfp_crt(SpiderFootPlugin):
             "DOMAIN_NAME",
             "CO_HOSTED_SITE",
             "CO_HOSTED_SITE_DOMAIN"
-        ]
+        ])
 
     def queryDomain(self, qry: str):
         params = {

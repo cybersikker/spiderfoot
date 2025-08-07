@@ -21,6 +21,7 @@ import urllib.request
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hackertarget(SpiderFootPlugin):
@@ -80,14 +81,14 @@ class sfp_hackertarget(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "NETBLOCK_OWNER",
             'DOMAIN_NAME_PARENT'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "CO_HOSTED_SITE",
             "IP_ADDRESS",
             'WEBSERVER_HTTPHEADERS',
@@ -98,7 +99,7 @@ class sfp_hackertarget(SpiderFootPlugin):
             'AFFILIATE_DOMAIN_NAME',
             'AFFILIATE_INTERNET_NAME',
             'AFFILIATE_INTERNET_NAME_UNRESOLVED'
-        ]
+        ])
 
     def httpHeaders(self, ip):
         """Retrieve HTTP headers for IP address

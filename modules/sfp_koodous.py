@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_koodous(SpiderFootPlugin):
@@ -68,15 +69,15 @@ class sfp_koodous(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'DOMAIN_NAME'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'APPSTORE_ENTRY',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     def queryPackageName(self, qry, cursor=''):
         package_name = qry.encode('raw_unicode_escape').decode("ascii", errors='replace')

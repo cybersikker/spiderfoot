@@ -16,6 +16,7 @@ import time
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_binaryedge(SpiderFootPlugin):
@@ -96,16 +97,16 @@ class sfp_binaryedge(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "DOMAIN_NAME",
             "EMAILADDR",
             "NETBLOCK_OWNER",
             "NETBLOCK_MEMBER"
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "DOMAIN_NAME",
             "VULNERABILITY_CVE_CRITICAL",
@@ -120,7 +121,7 @@ class sfp_binaryedge(SpiderFootPlugin):
             "UDP_PORT_OPEN_INFO",
             "CO_HOSTED_SITE",
             "MALICIOUS_IPADDR"
-        ]
+        ])
 
     def query(self, qry, querytype, page=1):
         retarr = list()

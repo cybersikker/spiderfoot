@@ -16,6 +16,7 @@ import re
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_circllu(SpiderFootPlugin):
@@ -92,11 +93,11 @@ class sfp_circllu(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["INTERNET_NAME", "NETBLOCK_OWNER", "IP_ADDRESS", "DOMAIN_NAME"]
+        return filteredEvents(["INTERNET_NAME", "NETBLOCK_OWNER", "IP_ADDRESS", "DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["IP_ADDRESS", "SSL_CERTIFICATE_ISSUED", "CO_HOSTED_SITE"]
+        return filteredEvents(["IP_ADDRESS", "SSL_CERTIFICATE_ISSUED", "CO_HOSTED_SITE"])
 
     def query(self, qry, qtype):
         if self.errorState:

@@ -16,6 +16,7 @@ import os.path
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_wafw00f(SpiderFootPlugin):
@@ -56,10 +57,10 @@ class sfp_tool_wafw00f(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME']
+        return filteredEvents(['INTERNET_NAME'])
 
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'WEBSERVER_TECHNOLOGY']
+        return filteredEvents(['RAW_RIR_DATA', 'WEBSERVER_TECHNOLOGY'])
 
     def handleEvent(self, event):
         eventName = event.eventType

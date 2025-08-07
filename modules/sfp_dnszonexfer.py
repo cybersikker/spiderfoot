@@ -16,6 +16,7 @@ import dns.query
 import dns.zone
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnszonexfer(SpiderFootPlugin):
@@ -47,10 +48,10 @@ class sfp_dnszonexfer(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['PROVIDER_DNS']
+        return filteredEvents(['PROVIDER_DNS'])
 
     def producedEvents(self):
-        return ["RAW_DNS_RECORDS", "INTERNET_NAME"]
+        return filteredEvents(["RAW_DNS_RECORDS", "INTERNET_NAME"])
 
     def handleEvent(self, event):
         eventName = event.eventType

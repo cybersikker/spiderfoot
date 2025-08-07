@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_snov(SpiderFootPlugin):
@@ -74,11 +75,11 @@ class sfp_snov(SpiderFootPlugin):
     # What events is this module interested in for input
     # For a list of all events, check sfdb.py.
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "INTERNET_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC"])
 
     # Get Authentication token from Snov.IO API
     def queryAccessToken(self):

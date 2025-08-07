@@ -18,6 +18,7 @@ from netaddr import IPNetwork
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent, SpiderFootHelpers
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_onesixtyone(SpiderFootPlugin):
@@ -74,14 +75,14 @@ class sfp_tool_onesixtyone(SpiderFootPlugin):
             self.errorState = True
 
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'NETBLOCK_OWNER']
+        return filteredEvents(['IP_ADDRESS', 'NETBLOCK_OWNER'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'UDP_PORT_OPEN_INFO',
             'UDP_PORT_OPEN',
             'IP_ADDRESS'
-        ]
+        ])
 
     def handleEvent(self, event):
         eventName = event.eventType

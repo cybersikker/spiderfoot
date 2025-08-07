@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_neutrinoapi(SpiderFootPlugin):
@@ -75,11 +76,11 @@ class sfp_neutrinoapi(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'IPV6_ADDRESS', 'PHONE_NUMBER']
+        return filteredEvents(['IP_ADDRESS', 'IPV6_ADDRESS', 'PHONE_NUMBER'])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'RAW_RIR_DATA',
             'BLACKLISTED_IPADDR',
             'MALICIOUS_IPADDR',
@@ -87,7 +88,7 @@ class sfp_neutrinoapi(SpiderFootPlugin):
             'VPN_HOST',
             'TOR_EXIT_NODE',
             'GEOINFO',
-        ]
+        ])
 
     # Query the phone-validate REST API
     # https://www.neutrinoapi.com/api/phone-validate/

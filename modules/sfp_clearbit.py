@@ -16,6 +16,7 @@ import urllib.request
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_clearbit(SpiderFootPlugin):
@@ -72,10 +73,10 @@ class sfp_clearbit(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["EMAILADDR"]
+        return filteredEvents(["EMAILADDR"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "PHONE_NUMBER",
             "PHYSICAL_ADDRESS",
@@ -83,7 +84,7 @@ class sfp_clearbit(SpiderFootPlugin):
             "EMAILADDR",
             "EMAILADDR_GENERIC",
             "INTERNET_NAME"
-        ]
+        ])
 
     def query(self, email: str):
         api_key = self.opts['api_key']

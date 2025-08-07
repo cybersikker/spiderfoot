@@ -13,6 +13,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ipqualityscore(SpiderFootPlugin):
@@ -66,15 +67,15 @@ class sfp_ipqualityscore(SpiderFootPlugin):
         self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
             "EMAILADDR",
             "IP_ADDRESS",
             "PHONE_NUMBER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "EMAILADDR_DISPOSABLE",
             "EMAILADDR_COMPROMISED",
             "GEOINFO",
@@ -84,7 +85,7 @@ class sfp_ipqualityscore(SpiderFootPlugin):
             "MALICIOUS_INTERNET_NAME",
             "PHONE_NUMBER_TYPE",
             "RAW_RIR_DATA"
-        ]
+        ])
 
     def handle_error_response(self, qry, res):
         try:

@@ -13,6 +13,7 @@
 import string
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_binstring(SpiderFootPlugin):
@@ -106,11 +107,11 @@ class sfp_binstring(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["LINKED_URL_INTERNAL"]
+        return filteredEvents(["LINKED_URL_INTERNAL"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["RAW_FILE_META_DATA"]
+        return filteredEvents(["RAW_FILE_META_DATA"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -14,6 +14,7 @@
 import dns.resolver
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_opennic(SpiderFootPlugin):
@@ -54,20 +55,20 @@ class sfp_opennic(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "INTERNET_NAME_UNRESOLVED",
             "AFFILIATE_INTERNET_NAME",
             "AFFILIATE_INTERNET_NAME_UNRESOLVED",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
             "AFFILIATE_IPV6_ADDRESS",
-        ]
+        ])
 
     def queryOpenNIC(self, qaddr):
         res = dns.resolver.Resolver()

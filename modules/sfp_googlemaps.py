@@ -15,6 +15,7 @@ import json
 import urllib
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_googlemaps(SpiderFootPlugin):
@@ -68,10 +69,10 @@ class sfp_googlemaps(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['DOMAIN_NAME', 'PHYSICAL_ADDRESS']
+        return filteredEvents(['DOMAIN_NAME', 'PHYSICAL_ADDRESS'])
 
     def producedEvents(self):
-        return ["PHYSICAL_ADDRESS", "PHYSICAL_COORDINATES", "RAW_RIR_DATA"]
+        return filteredEvents(["PHYSICAL_ADDRESS", "PHYSICAL_COORDINATES", "RAW_RIR_DATA"])
 
     def query(self, address):
         params = urllib.parse.urlencode({

@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_bgpview(SpiderFootPlugin):
@@ -54,22 +55,22 @@ class sfp_bgpview(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'IPV6_ADDRESS',
             'BGP_AS_MEMBER',
             'NETBLOCK_MEMBER',
             'NETBLOCKV6_MEMBER'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'BGP_AS_MEMBER',
             'NETBLOCK_MEMBER',
             'NETBLOCKV6_MEMBER',
             'PHYSICAL_ADDRESS',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     def queryAsn(self, qry):
         res = self.sf.fetchUrl("https://api.bgpview.io/asn/" + qry.replace('AS', ''),

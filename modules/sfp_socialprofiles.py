@@ -16,6 +16,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 sites = {
     # Search string to use, domain name the profile will sit on within
@@ -117,13 +118,13 @@ class sfp_socialprofiles(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["HUMAN_NAME"]
+        return filteredEvents(["HUMAN_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["SOCIAL_MEDIA", "RAW_RIR_DATA"]
+        return filteredEvents(["SOCIAL_MEDIA", "RAW_RIR_DATA"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

@@ -14,6 +14,7 @@
 from netaddr import IPAddress
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_hosting(SpiderFootPlugin):
@@ -47,13 +48,13 @@ class sfp_hosting(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS']
+        return filteredEvents(['IP_ADDRESS'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["PROVIDER_HOSTING"]
+        return filteredEvents(["PROVIDER_HOSTING"])
 
     def queryAddr(self, qaddr):
         data = dict()

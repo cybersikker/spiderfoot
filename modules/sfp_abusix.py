@@ -16,6 +16,7 @@ import ipaddress
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_abusix(SpiderFootPlugin):
@@ -103,7 +104,7 @@ class sfp_abusix(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'IPV6_ADDRESS',
             'AFFILIATE_IPADDR',
@@ -115,10 +116,10 @@ class sfp_abusix(SpiderFootPlugin):
             'INTERNET_NAME',
             'AFFILIATE_INTERNET_NAME',
             'CO_HOSTED_SITE',
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -133,7 +134,7 @@ class sfp_abusix(SpiderFootPlugin):
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST",
-        ]
+        ])
 
     def reverseIpAddress(self, ipaddr):
         if not self.sf.validIP(ipaddr):

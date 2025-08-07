@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_flickr(SpiderFootPlugin):
@@ -77,12 +78,12 @@ class sfp_flickr(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC", "INTERNET_NAME",
-                "DOMAIN_NAME", "LINKED_URL_INTERNAL"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC", "INTERNET_NAME",
+                "DOMAIN_NAME", "LINKED_URL_INTERNAL"])
 
     # Retrieve API key
     def retrieveApiKey(self):

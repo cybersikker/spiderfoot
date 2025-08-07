@@ -15,6 +15,7 @@ import json
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_threatcrowd(SpiderFootPlugin):
@@ -78,16 +79,16 @@ class sfp_threatcrowd(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "AFFILIATE_IPADDR", "INTERNET_NAME",
+        return filteredEvents(["IP_ADDRESS", "AFFILIATE_IPADDR", "INTERNET_NAME",
                 "CO_HOSTED_SITE", "NETBLOCK_OWNER", "EMAILADDR",
-                "NETBLOCK_MEMBER", "AFFILIATE_INTERNET_NAME"]
+                "NETBLOCK_MEMBER", "AFFILIATE_INTERNET_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["MALICIOUS_IPADDR", "MALICIOUS_INTERNET_NAME",
+        return filteredEvents(["MALICIOUS_IPADDR", "MALICIOUS_INTERNET_NAME",
                 "MALICIOUS_COHOST", "MALICIOUS_AFFILIATE_INTERNET_NAME",
                 "MALICIOUS_AFFILIATE_IPADDR", "MALICIOUS_NETBLOCK",
-                "MALICIOUS_SUBNET", "MALICIOUS_EMAILADDR"]
+                "MALICIOUS_SUBNET", "MALICIOUS_EMAILADDR"])
 
     def query(self, qry):
         url = None

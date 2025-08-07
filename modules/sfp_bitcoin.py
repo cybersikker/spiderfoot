@@ -16,6 +16,7 @@ import re
 from hashlib import sha256
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_bitcoin(SpiderFootPlugin):
@@ -41,10 +42,10 @@ class sfp_bitcoin(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT"]
+        return filteredEvents(["TARGET_WEB_CONTENT"])
 
     def producedEvents(self):
-        return ["BITCOIN_ADDRESS"]
+        return filteredEvents(["BITCOIN_ADDRESS"])
 
     def to_bytes(self, n, length):
         h = '%x' % n

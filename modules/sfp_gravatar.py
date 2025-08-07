@@ -16,6 +16,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_gravatar(SpiderFootPlugin):
@@ -62,13 +63,13 @@ class sfp_gravatar(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['EMAILADDR']
+        return filteredEvents(['EMAILADDR'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'USERNAME',
+        return filteredEvents(['RAW_RIR_DATA', 'USERNAME',
                 'EMAILADDR', 'EMAILADDR_GENERIC', 'PHONE_NUMBER', 'GEOINFO',
-                'ACCOUNT_EXTERNAL_OWNED', 'SOCIAL_MEDIA']
+                'ACCOUNT_EXTERNAL_OWNED', 'SOCIAL_MEDIA'])
 
     # Query Gravatar API for the specified email address
     # https://secure.gravatar.com/site/implement/

@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_searchcode(SpiderFootPlugin):
@@ -59,18 +60,16 @@ class sfp_searchcode(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
-            'DOMAIN_NAME'
-        ]
+        return filteredEvents(['DOMAIN_NAME'])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'EMAILADDR',
             'EMAILADDR_GENERIC',
             'LINKED_URL_INTERNAL',
             'PUBLIC_CODE_REPO',
             'RAW_RIR_DATA',
-        ]
+        ])
 
     def query(self, qry, page=1, per_page=100):
         params = urllib.parse.urlencode({

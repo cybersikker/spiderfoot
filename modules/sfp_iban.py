@@ -12,7 +12,7 @@
 # -------------------------------------------------------------------------------
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_iban(SpiderFootPlugin):
 
@@ -44,12 +44,12 @@ class sfp_iban(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT", "DARKNET_MENTION_CONTENT",
-                "LEAKSITE_CONTENT"]
+        return filteredEvents(["TARGET_WEB_CONTENT", "DARKNET_MENTION_CONTENT",
+                "LEAKSITE_CONTENT"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["IBAN_NUMBER"]
+        return filteredEvents(["IBAN_NUMBER"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

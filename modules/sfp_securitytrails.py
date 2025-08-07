@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_securitytrails(SpiderFootPlugin):
@@ -82,15 +83,15 @@ class sfp_securitytrails(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS", "DOMAIN_NAME",
-                "EMAILADDR", "NETBLOCK_OWNER"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS", "DOMAIN_NAME",
+                "EMAILADDR", "NETBLOCK_OWNER"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["CO_HOSTED_SITE",
+        return filteredEvents(["CO_HOSTED_SITE",
                 "DOMAIN_NAME", "AFFILIATE_DOMAIN_NAME",
                 "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
-                "PROVIDER_HOSTING"]
+                "PROVIDER_HOSTING"])
 
     # Search SecurityTrails
     def query(self, qry, querytype, page=1, accum=None):

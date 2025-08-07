@@ -17,6 +17,8 @@ import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
 
+from spiderfoot.cybersikker import filteredEvents
+
 
 class sfp_crossref(SpiderFootPlugin):
 
@@ -46,18 +48,18 @@ class sfp_crossref(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'LINKED_URL_EXTERNAL',
             'SIMILARDOMAIN',
             'CO_HOSTED_SITE',
             'DARKNET_MENTION_URL'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'AFFILIATE_INTERNET_NAME',
             'AFFILIATE_WEB_CONTENT'
-        ]
+        ])
 
     def handleEvent(self, event):
         eventName = event.eventType

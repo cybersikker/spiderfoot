@@ -14,6 +14,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_zonefiles(SpiderFootPlugin):
@@ -64,17 +65,17 @@ class sfp_zonefiles(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "RAW_RIR_DATA",
             "IP_ADDRESS",
             "PHONE_NUMBER",
             "EMAILADDR",
             "PROVIDER_DNS",
             "SOFTWARE_USED",
-        ]
+        ])
 
     def queryDomain(self, qry):
         """Query a domain

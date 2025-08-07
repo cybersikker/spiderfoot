@@ -16,6 +16,7 @@ import re
 from bs4 import BeautifulSoup
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnsdumpster(SpiderFootPlugin):
@@ -45,10 +46,10 @@ class sfp_dnsdumpster(SpiderFootPlugin):
         self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "INTERNET_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "INTERNET_NAME"])
 
     def producedEvents(self):
-        return ["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"])
 
     def query(self, domain):
         ret = []

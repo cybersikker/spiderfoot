@@ -15,6 +15,8 @@ from netaddr import IPAddress, IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
+from spiderfoot.cybersikker import filteredEvents
+
 
 class sfp_multiproxy(SpiderFootPlugin):
 
@@ -66,15 +68,15 @@ class sfp_multiproxy(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             'NETBLOCK_OWNER',
             'NETBLOCK_MEMBER',
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -83,7 +85,7 @@ class sfp_multiproxy(SpiderFootPlugin):
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_NETBLOCK",
             "MALICIOUS_SUBNET",
-        ]
+        ])
 
     def queryProxyList(self, target, targetType):
         proxy_list = self.retrieveProxyList()

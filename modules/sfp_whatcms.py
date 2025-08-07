@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_whatcms(SpiderFootPlugin):
@@ -79,11 +80,11 @@ class sfp_whatcms(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['DOMAIN_NAME']
+        return filteredEvents(['DOMAIN_NAME'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['RAW_RIR_DATA', 'WEBSERVER_TECHNOLOGY']
+        return filteredEvents(['RAW_RIR_DATA', 'WEBSERVER_TECHNOLOGY'])
 
     # Query WhatCMS API for the CMS used by the specified URL
     # https://whatcms.org/Documentation

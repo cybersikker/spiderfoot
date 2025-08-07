@@ -13,6 +13,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_names(SpiderFootPlugin):
@@ -54,13 +55,13 @@ class sfp_names(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["TARGET_WEB_CONTENT", "EMAILADDR",
+        return filteredEvents(["TARGET_WEB_CONTENT", "EMAILADDR",
                 "DOMAIN_WHOIS", "NETBLOCK_WHOIS",
-                "RAW_RIR_DATA", "RAW_FILE_META_DATA"]
+                "RAW_RIR_DATA", "RAW_FILE_META_DATA"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["HUMAN_NAME"]
+        return filteredEvents(["HUMAN_NAME"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

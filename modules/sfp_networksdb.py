@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_networksdb(SpiderFootPlugin):
@@ -81,12 +82,12 @@ class sfp_networksdb(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["IP_ADDRESS", "IPV6_ADDRESS", "INTERNET_NAME", "DOMAIN_NAME"]
+        return filteredEvents(["IP_ADDRESS", "IPV6_ADDRESS", "INTERNET_NAME", "DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["INTERNET_NAME", "IP_ADDRESS", "IPV6_ADDRESS", "NETBLOCK_MEMBER",
-                "CO_HOSTED_SITE", "GEOINFO", "RAW_RIR_DATA"]
+        return filteredEvents(["INTERNET_NAME", "IP_ADDRESS", "IPV6_ADDRESS", "NETBLOCK_MEMBER",
+                "CO_HOSTED_SITE", "GEOINFO", "RAW_RIR_DATA"])
 
     # Query IP Address Info
     # https://networksdb.io/api/docs#ipinfo

@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_sublist3r(SpiderFootPlugin):
@@ -45,10 +46,10 @@ class sfp_sublist3r(SpiderFootPlugin):
         self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "INTERNET_NAME"]
+        return filteredEvents(["DOMAIN_NAME", "INTERNET_NAME"])
 
     def producedEvents(self):
-        return ["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"]
+        return filteredEvents(["INTERNET_NAME", "INTERNET_NAME_UNRESOLVED"])
 
     def query(self, domain):
         url = f"https://api.sublist3r.com/search.php?domain={domain}"

@@ -17,7 +17,7 @@ import json
 from subprocess import Popen, PIPE, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent, SpiderFootHelpers
-
+from spiderfoot.cybersikker import filteredEvents
 
 class sfp_tool_wappalyzer(SpiderFootPlugin):
 
@@ -59,10 +59,10 @@ class sfp_tool_wappalyzer(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     def producedEvents(self):
-        return ["OPERATING_SYSTEM", "SOFTWARE_USED", "WEBSERVER_TECHNOLOGY"]
+        return filteredEvents(["OPERATING_SYSTEM", "SOFTWARE_USED", "WEBSERVER_TECHNOLOGY"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

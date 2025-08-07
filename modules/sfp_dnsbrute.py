@@ -17,6 +17,7 @@ import threading
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnsbrute(SpiderFootPlugin):
@@ -82,13 +83,13 @@ class sfp_dnsbrute(SpiderFootPlugin):
         ret = ['DOMAIN_NAME']
         if not self.opts['domainonly'] or self.opts['numbersuffix']:
             ret.append('INTERNET_NAME')
-        return ret
+        return filteredEvents(ret)
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME"])
 
     def tryHost(self, name):
         try:

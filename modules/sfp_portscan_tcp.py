@@ -18,6 +18,7 @@ import time
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_portscan_tcp(SpiderFootPlugin):
@@ -95,11 +96,11 @@ class sfp_portscan_tcp(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'NETBLOCK_OWNER']
+        return filteredEvents(['IP_ADDRESS', 'NETBLOCK_OWNER'])
 
     # What events this module produces
     def producedEvents(self):
-        return ["TCP_PORT_OPEN", "TCP_PORT_OPEN_BANNER"]
+        return filteredEvents(["TCP_PORT_OPEN", "TCP_PORT_OPEN_BANNER"])
 
     def tryPort(self, ip, port):
         peer = f"{ip}:{port}"

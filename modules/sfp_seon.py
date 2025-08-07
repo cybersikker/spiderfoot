@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_seon(SpiderFootPlugin):
@@ -66,18 +67,18 @@ class sfp_seon(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "EMAILADDR",
             "PHONE_NUMBER"
-        ]
+        ])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "GEOINFO",
             "MALICIOUS_IPADDR",
             "TCP_PORT_OPEN",
@@ -96,7 +97,7 @@ class sfp_seon(SpiderFootPlugin):
             "TOR_EXIT_NODE",
             "VPN_HOST",
             "PROXY_HOST",
-        ]
+        ])
 
     def query(self, qry, eventName):
         if eventName in ['IP_ADDRESS', 'IPV6_ADDRESS']:

@@ -15,6 +15,7 @@
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dronebl(SpiderFootPlugin):
@@ -87,15 +88,15 @@ class sfp_dronebl(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             'IP_ADDRESS',
             'AFFILIATE_IPADDR',
             'NETBLOCK_OWNER',
             'NETBLOCK_MEMBER'
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "BLACKLISTED_IPADDR",
             "BLACKLISTED_AFFILIATE_IPADDR",
             "BLACKLISTED_SUBNET",
@@ -106,7 +107,7 @@ class sfp_dronebl(SpiderFootPlugin):
             "MALICIOUS_SUBNET",
             "VPN_HOST",
             "PROXY_HOST"
-        ]
+        ])
 
     # Swap 1.2.3.4 to 4.3.2.1
     def reverseAddr(self, ipaddr):

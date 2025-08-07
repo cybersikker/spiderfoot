@@ -17,6 +17,7 @@ import os
 from subprocess import PIPE, Popen, TimeoutExpired
 
 from spiderfoot import SpiderFootPlugin, SpiderFootEvent
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_tool_trufflehog(SpiderFootPlugin):
@@ -62,10 +63,10 @@ class sfp_tool_trufflehog(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['SOCIAL_MEDIA', 'PUBLIC_CODE_REPO']
+        return filteredEvents(['SOCIAL_MEDIA', 'PUBLIC_CODE_REPO'])
 
     def producedEvents(self):
-        return ['PASSWORD_COMPROMISED']
+        return filteredEvents(['PASSWORD_COMPROMISED'])
 
     def handleEvent(self, event):
         eventName = event.eventType

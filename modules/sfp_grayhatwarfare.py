@@ -14,6 +14,7 @@ import time
 import urllib
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_grayhatwarfare(SpiderFootPlugin):
@@ -72,17 +73,17 @@ class sfp_grayhatwarfare(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "DOMAIN_NAME",
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             'CLOUD_STORAGE_BUCKET',
             'CLOUD_STORAGE_BUCKET_OPEN',
             'RAW_RIR_DATA'
-        ]
+        ])
 
     # Query Grayhat Warfare
     def query(self, keyword, start):

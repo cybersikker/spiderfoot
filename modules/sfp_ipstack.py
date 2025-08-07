@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_ipstack(SpiderFootPlugin):
@@ -65,13 +66,13 @@ class sfp_ipstack(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS']
+        return filteredEvents(['IP_ADDRESS'])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["GEOINFO"]
+        return filteredEvents(["GEOINFO"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

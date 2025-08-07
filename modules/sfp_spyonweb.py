@@ -16,6 +16,7 @@ import json
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_spyonweb(SpiderFootPlugin):
@@ -82,12 +83,12 @@ class sfp_spyonweb(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['IP_ADDRESS', 'INTERNET_NAME', 'DOMAIN_NAME', 'WEB_ANALYTICS_ID']
+        return filteredEvents(['IP_ADDRESS', 'INTERNET_NAME', 'DOMAIN_NAME', 'WEB_ANALYTICS_ID'])
 
     # What events this module produces
     def producedEvents(self):
-        return ['CO_HOSTED_SITE', 'INTERNET_NAME', 'AFFILIATE_INTERNET_NAME',
-                'WEB_ANALYTICS_ID', 'DOMAIN_NAME', 'AFFILIATE_DOMAIN_NAME']
+        return filteredEvents(['CO_HOSTED_SITE', 'INTERNET_NAME', 'AFFILIATE_INTERNET_NAME',
+                'WEB_ANALYTICS_ID', 'DOMAIN_NAME', 'AFFILIATE_DOMAIN_NAME'])
 
     # Query the REST API
     # https://api.spyonweb.com/v1/docs

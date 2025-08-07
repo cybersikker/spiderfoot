@@ -15,6 +15,7 @@ import re
 
 from netaddr import IPAddress, IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 malchecks = {
@@ -72,16 +73,16 @@ class sfp_customfeed(SpiderFootPlugin):
     # What events is this module interested in for input
     # * = be notified about all events.
     def watchedEvents(self):
-        return ["INTERNET_NAME", "IP_ADDRESS", "AFFILIATE_INTERNET_NAME",
-                "AFFILIATE_IPADDR", "CO_HOSTED_SITE"]
+        return filteredEvents(["INTERNET_NAME", "IP_ADDRESS", "AFFILIATE_INTERNET_NAME",
+                "AFFILIATE_IPADDR", "CO_HOSTED_SITE"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["MALICIOUS_IPADDR", "MALICIOUS_INTERNET_NAME",
+        return filteredEvents(["MALICIOUS_IPADDR", "MALICIOUS_INTERNET_NAME",
                 "MALICIOUS_AFFILIATE_IPADDR", "MALICIOUS_AFFILIATE_INTERNET_NAME",
-                "MALICIOUS_COHOST"]
+                "MALICIOUS_COHOST"])
 
     # Look up 'list' type resources
     def resourceList(self, replaceme_id, target, targetType):

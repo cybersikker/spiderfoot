@@ -14,6 +14,7 @@ import base64
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_twilio(SpiderFootPlugin):
@@ -66,10 +67,10 @@ class sfp_twilio(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["PHONE_NUMBER"]
+        return filteredEvents(["PHONE_NUMBER"])
 
     def producedEvents(self):
-        return ["COMPANY_NAME", "RAW_RIR_DATA"]
+        return filteredEvents(["COMPANY_NAME", "RAW_RIR_DATA"])
 
     # When querying third parties, it's best to have a dedicated function
     # to do so and avoid putting it in handleEvent()

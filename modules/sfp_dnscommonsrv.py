@@ -14,6 +14,7 @@
 import dns.resolver
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_dnscommonsrv(SpiderFootPlugin):
@@ -82,10 +83,10 @@ class sfp_dnscommonsrv(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ['INTERNET_NAME', 'DOMAIN_NAME']
+        return filteredEvents(['INTERNET_NAME', 'DOMAIN_NAME'])
 
     def producedEvents(self):
-        return ["INTERNET_NAME", "AFFILIATE_INTERNET_NAME"]
+        return filteredEvents(["INTERNET_NAME", "AFFILIATE_INTERNET_NAME"])
 
     def handleEvent(self, event):
         eventName = event.eventType

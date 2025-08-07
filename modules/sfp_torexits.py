@@ -15,6 +15,7 @@ import json
 
 from netaddr import IPNetwork
 
+from spiderfoot.cybersikker import filteredEvents
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
 
@@ -63,21 +64,21 @@ class sfp_torexits(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "AFFILIATE_IPADDR",
             "AFFILIATE_IPV6_ADDRESS",
             "NETBLOCK_OWNER",
             "NETBLOCKV6_OWNER",
-        ]
+        ])
 
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "IPV6_ADDRESS",
             "TOR_EXIT_NODE",
-        ]
+        ])
 
     def queryExitNodes(self, ip):
         exit_addresses = self.retrieveExitNodes()

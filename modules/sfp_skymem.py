@@ -14,6 +14,7 @@
 import re
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_skymem(SpiderFootPlugin):
@@ -55,13 +56,13 @@ class sfp_skymem(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ['INTERNET_NAME', "DOMAIN_NAME"]
+        return filteredEvents(['INTERNET_NAME', "DOMAIN_NAME"])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return ["EMAILADDR", "EMAILADDR_GENERIC"]
+        return filteredEvents(["EMAILADDR", "EMAILADDR_GENERIC"])
 
     # Handle events sent to this module
     def handleEvent(self, event):

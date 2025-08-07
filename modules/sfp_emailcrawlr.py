@@ -18,6 +18,7 @@ import urllib.parse
 import urllib.request
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_emailcrawlr(SpiderFootPlugin):
@@ -76,12 +77,12 @@ class sfp_emailcrawlr(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME"]
+        return filteredEvents(["DOMAIN_NAME"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["RAW_RIR_DATA", "EMAILADDR", "EMAILADDR_GENERIC",
-                "PHONE_NUMBER", "GEOINFO"]
+        return filteredEvents(["RAW_RIR_DATA", "EMAILADDR", "EMAILADDR_GENERIC",
+                "PHONE_NUMBER", "GEOINFO"])
 
     # Query domain
     # https://emailcrawlr.com/docs

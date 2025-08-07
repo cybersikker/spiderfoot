@@ -14,6 +14,7 @@ import json
 import urllib.parse
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_bitcoinwhoswho(SpiderFootPlugin):
@@ -66,10 +67,10 @@ class sfp_bitcoinwhoswho(SpiderFootPlugin):
             self.opts.update(userOpts)
 
     def watchedEvents(self):
-        return ["BITCOIN_ADDRESS"]
+        return filteredEvents(["BITCOIN_ADDRESS"])
 
     def producedEvents(self):
-        return ["MALICIOUS_BITCOIN_ADDRESS", "RAW_RIR_DATA"]
+        return filteredEvents(["MALICIOUS_BITCOIN_ADDRESS", "RAW_RIR_DATA"])
 
     def query(self, qry):
         qs = urllib.parse.urlencode({"address": qry})

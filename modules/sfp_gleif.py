@@ -15,6 +15,7 @@ import json
 import urllib
 
 from spiderfoot import SpiderFootEvent, SpiderFootHelpers, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_gleif(SpiderFootPlugin):
@@ -55,10 +56,10 @@ class sfp_gleif(SpiderFootPlugin):
             self.opts[opt] = userOpts[opt]
 
     def watchedEvents(self):
-        return ["COMPANY_NAME", "LEI"]
+        return filteredEvents(["COMPANY_NAME", "LEI"])
 
     def producedEvents(self):
-        return ["COMPANY_NAME", "LEI", "PHYSICAL_ADDRESS", "RAW_RIR_DATA"]
+        return filteredEvents(["COMPANY_NAME", "LEI", "PHYSICAL_ADDRESS", "RAW_RIR_DATA"])
 
     def searchLegalName(self, qry):
         """Fuzzy search for legal entity by name

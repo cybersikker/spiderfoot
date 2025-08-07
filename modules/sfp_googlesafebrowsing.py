@@ -14,6 +14,7 @@
 import json
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_googlesafebrowsing(SpiderFootPlugin):
@@ -68,26 +69,26 @@ class sfp_googlesafebrowsing(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "INTERNET_NAME",
             "IP_ADDRESS",
             "AFFILIATE_INTERNET_NAME",
             "AFFILIATE_IPADDR",
             "CO_HOSTED_SITE",
-        ]
+        ])
 
     # What events this module produces
     # This is to support the end user in selecting modules based on events
     # produced.
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "MALICIOUS_IPADDR",
             "MALICIOUS_INTERNET_NAME",
             "MALICIOUS_AFFILIATE_IPADDR",
             "MALICIOUS_AFFILIATE_INTERNET_NAME",
             "MALICIOUS_COHOST",
             "RAW_RIR_DATA",
-        ]
+        ])
 
     def query(self, qry):
 

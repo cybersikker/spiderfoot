@@ -18,6 +18,8 @@ from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
 
+from spiderfoot.cybersikker import filteredEvents
+
 
 class sfp_dnsresolve(SpiderFootPlugin):
 
@@ -185,7 +187,7 @@ class sfp_dnsresolve(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             # Events that need some kind of DNS treatment
             "CO_HOSTED_SITE", "AFFILIATE_INTERNET_NAME", "NETBLOCK_OWNER", "NETBLOCKV6_OWNER",
             "IP_ADDRESS", "IPV6_ADDRESS", "INTERNET_NAME", "AFFILIATE_IPADDR", "AFFILIATE_IPV6_ADDRESS",
@@ -196,14 +198,14 @@ class sfp_dnsresolve(SpiderFootPlugin):
             "RAW_RIR_DATA", "SIMILARDOMAIN_WHOIS",
             "SSL_CERTIFICATE_RAW", "SSL_CERTIFICATE_ISSUED", "TCP_PORT_OPEN_BANNER",
             "WEBSERVER_BANNER", "WEBSERVER_HTTPHEADERS"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return ["IP_ADDRESS", "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
+        return filteredEvents(["IP_ADDRESS", "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
                 "AFFILIATE_IPADDR", "AFFILIATE_IPV6_ADDRESS", "DOMAIN_NAME", "IPV6_ADDRESS", "INTERNAL_IP_ADDRESS",
-                "DOMAIN_NAME_PARENT", "CO_HOSTED_SITE_DOMAIN", # "AFFILIATE_DOMAIN_NAME",
-                "INTERNET_NAME_UNRESOLVED"]
+                "DOMAIN_NAME_PARENT", "CO_HOSTED_SITE_DOMAIN", "AFFILIATE_DOMAIN_NAME",
+                "INTERNET_NAME_UNRESOLVED"])
 
     # Handle events sent to this module
     def handleEvent(self, event) -> None:

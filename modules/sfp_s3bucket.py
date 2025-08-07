@@ -16,6 +16,7 @@ import threading
 import time
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_s3bucket(SpiderFootPlugin):
@@ -65,11 +66,11 @@ class sfp_s3bucket(SpiderFootPlugin):
 
     # What events is this module interested in for input
     def watchedEvents(self):
-        return ["DOMAIN_NAME", "LINKED_URL_EXTERNAL"]
+        return filteredEvents(["DOMAIN_NAME", "LINKED_URL_EXTERNAL"])
 
     # What events this module produces
     def producedEvents(self):
-        return ["CLOUD_STORAGE_BUCKET", "CLOUD_STORAGE_BUCKET_OPEN"]
+        return filteredEvents(["CLOUD_STORAGE_BUCKET", "CLOUD_STORAGE_BUCKET_OPEN"])
 
     def checkSite(self, url):
         res = self.sf.fetchUrl(url, timeout=10, useragent="SpiderFoot", noLog=True)

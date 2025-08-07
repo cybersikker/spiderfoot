@@ -15,6 +15,7 @@ import json
 from netaddr import IPNetwork
 
 from spiderfoot import SpiderFootEvent, SpiderFootPlugin
+from spiderfoot.cybersikker import filteredEvents
 
 
 class sfp_template(SpiderFootPlugin):
@@ -205,16 +206,16 @@ class sfp_template(SpiderFootPlugin):
     # What events is this module interested in for input
     # For a list of all events, check spiderfoot/db.py.
     def watchedEvents(self):
-        return [
+        return filteredEvents([
             "IP_ADDRESS",
             "NETBLOCK_OWNER",
             "DOMAIN_NAME",
             "WEB_ANALYTICS_ID"
-        ]
+        ])
 
     # What events this module produces
     def producedEvents(self):
-        return [
+        return filteredEvents([
             "OPERATING_SYSTEM",
             "DEVICE_TYPE",
             "TCP_PORT_OPEN",
@@ -222,7 +223,7 @@ class sfp_template(SpiderFootPlugin):
             'RAW_RIR_DATA',
             'GEOINFO',
             'VULNERABILITY_GENERAL'
-        ]
+        ])
 
     # When querying third parties, it's best to have a dedicated function
     # to do so and avoid putting it in handleEvent()
