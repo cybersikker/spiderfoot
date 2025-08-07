@@ -1431,6 +1431,7 @@ class SpiderFootWebUi:
 
         # User selected modules
         if modulelist:
+            print(f"modulelist: {modulelist}")
             modlist = modulelist.replace('module_', '').split(',')
 
         # User selected types
