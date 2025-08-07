@@ -47,6 +47,8 @@ RUN echo "$REQUIREMENTS"
 RUN pip3 install -U pip
 RUN pip3 install -r "$REQUIREMENTS"
 
+
+
 FROM alpine:3.13.0
 WORKDIR /home/spiderfoot
 
@@ -55,13 +57,8 @@ ENV SPIDERFOOT_DATA /var/lib/spiderfoot
 ENV SPIDERFOOT_LOGS /var/lib/spiderfoot/log
 ENV SPIDERFOOT_CACHE /var/lib/spiderfoot/cache
 
-# Environment variables for Coolify compatibility
-ENV SPIDERFOOT_HOST=0.0.0.0
-ENV SPIDERFOOT_PORT=5001
-ENV SPIDERFOOT_DEBUG=false
-
 # Run everything as one command so that only one layer is created
-RUN apk --update --no-cache add python3 musl openssl libxslt tinyxml libxml2 jpeg zlib openjpeg curl \
+RUN apk --update --no-cache add python3 musl openssl libxslt tinyxml libxml2 jpeg zlib openjpeg \
     && addgroup spiderfoot \
     && adduser -G spiderfoot -h /home/spiderfoot -s /sbin/nologin \
                -g "SpiderFoot User" -D spiderfoot \
@@ -79,20 +76,10 @@ COPY . .
 COPY --from=build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Ensure proper permissions for all files
-RUN chown -R spiderfoot:spiderfoot /home/spiderfoot
-
-# Copy and set up startup script
-COPY start-spiderfoot.sh /home/spiderfoot/start-spiderfoot.sh
-RUN chmod +x /home/spiderfoot/start-spiderfoot.sh
-
 USER spiderfoot
 
 EXPOSE 5001
 
-# Health check to ensure the application is running
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:5001/ || exit 1
-
-# Run the application with proper environment variable handling
-ENTRYPOINT ["/home/spiderfoot/start-spiderfoot.sh"]
+# Run the application.
+ENTRYPOINT ["/opt/venv/bin/python"]
+CMD ["sf.py", "-l", "0.0.0.0:5001"]
