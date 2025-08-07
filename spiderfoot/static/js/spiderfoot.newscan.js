@@ -31,6 +31,7 @@
     }
 
     function selectAll() {
+        console.log("selectAll", $("[id^="+activeTab+"_]"));
         $("[id^="+activeTab+"_]").prop("checked", true);
     }
 
@@ -42,6 +43,8 @@ $(document).ready(function() {
     $("#usetab").click(function() { switchTab("use"); });
     $("#typetab").click(function() { switchTab("type"); });
     $("#moduletab").click(function() { switchTab("module"); });
+    // $("#cybersikkertab").click(function() { switchTab("cybersikker"); });
+
     $("#btn-select-all").click(function() { selectAll(); });
     $("#btn-deselect-all").click(function() { deselectAll(); });
     $("#btn-run-scan").click(function() { submitForm(); });

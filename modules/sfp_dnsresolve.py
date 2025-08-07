@@ -202,7 +202,7 @@ class sfp_dnsresolve(SpiderFootPlugin):
     def producedEvents(self):
         return ["IP_ADDRESS", "INTERNET_NAME", "AFFILIATE_INTERNET_NAME",
                 "AFFILIATE_IPADDR", "AFFILIATE_IPV6_ADDRESS", "DOMAIN_NAME", "IPV6_ADDRESS", "INTERNAL_IP_ADDRESS",
-                "DOMAIN_NAME_PARENT", "CO_HOSTED_SITE_DOMAIN", "AFFILIATE_DOMAIN_NAME",
+                "DOMAIN_NAME_PARENT", "CO_HOSTED_SITE_DOMAIN", # "AFFILIATE_DOMAIN_NAME",
                 "INTERNET_NAME_UNRESOLVED"]
 
     # Handle events sent to this module
@@ -519,9 +519,9 @@ class sfp_dnsresolve(SpiderFootPlugin):
         self.domresults[domainName] = True
 
         if affil:
-            domevt = SpiderFootEvent("AFFILIATE_DOMAIN_NAME", domainName,
-                                     self.__name__, parentEvent)
-            self.notifyListeners(domevt)
+            # domevt = SpiderFootEvent("AFFILIATE_DOMAIN_NAME", domainName,
+            #                          self.__name__, parentEvent)
+            # self.notifyListeners(domevt)
             return
 
         if self.getTarget().matches(domainName):

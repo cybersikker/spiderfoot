@@ -36,7 +36,8 @@
         <ul class='nav nav-tabs'>
         <li id='usetab' class="active"><a href='#'>By Use Case</a></li>
         <li id='typetab'><a href='#'>By Required Data</a></li>
-        <li id='moduletab'><a href='#'>By Module</a></li>
+        <!-- <li id='moduletab'><a href='#'>By Module</a></li> -->
+        <li id='moduletab'><a href='#'>Cybersikker</a></li>
         <div class='btn-group-sm pull-right' role="group" id='selectors' style='display: none'>
         <button id="btn-select-all" type="button" class="btn btn-info">Select All</button>&nbsp;&nbsp;
         <button id="btn-deselect-all" type="button" class="btn btn-info">De-Select All</button>
@@ -53,7 +54,7 @@
         </td></tr>
         </table>
 
-        <table class="table table-striped table-condensed" id="moduletable" style="display: none">
+        <!-- <table class="table table-striped table-condensed" id="moduletable" style="display: none">
             <%
             modlist = dict()
             for item in modules:
@@ -75,7 +76,7 @@
                     <tr><td><input type=checkbox id="module_${item}" checked></td><td>${modules[item]['name']}${keyicon}</td><td>${modules[item]['descr']}</td></tr>
                 % endif
             % endfor
-        </table>
+        </table> -->
         <table class="table table-striped table-condensed" id="typetable" style="display: none">
             <% count = 0 %>
             % for item in sorted(types):
@@ -87,6 +88,36 @@
                     </tr>
                 % endif
                 <% count = count + 1 %>
+            % endfor
+        </table>
+
+        <%
+        # Import the CYBERSIKKER_MODULES list from cybersikker.py
+        from spiderfoot.cybersikker import CYBERSIKKER_MODULES
+        %>
+        <table class="table table-striped table-condensed" id="moduletable" style="display: none">
+            <%
+            modlist = dict()
+            for item in modules:
+                # Only include modules that are in the CYBERSIKKER_MODULES list
+                if item.replace("sfp_", "") in CYBERSIKKER_MODULES:
+                    modlist[modules[item]['name']] = item
+            %>
+            % for it in sorted(modlist, key=lambda v: v.upper()):
+                <% item = modlist[it] %>
+                <% keylist = dict((k, v) for k, v in modules[item]['opts'].items() if not k.startswith('_')) %>
+                <% keyicon = "" %>
+                % if len(keylist) > 0:
+                    <% apikeylist = dict((k, v) for k, v in modules[item]['opts'].items() if k.find("api_key") >= 0) %>
+                    <%
+                    if len(apikeylist) > 0:
+                        keyicon = "&nbsp;&nbsp;<i class=\"glyphicon glyphicon-lock\" rel='tooltip' title='Needs API key'></i>"
+                    %>
+                % endif
+
+                % if item != "sfp__stor_db" and item != "sfp__stor_stdout":
+                    <tr><td><input type=checkbox id="module_${item}" checked></td><td>${modules[item]['name']}${keyicon}</td><td>${modules[item]['descr']}</td></tr>
+                % endif
             % endfor
         </table>
     </div>

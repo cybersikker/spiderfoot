@@ -40,7 +40,7 @@ RUN apk add --no-cache gcc git curl python3 python3-dev py3-pip swig tinyxml-dev
  python3-dev musl-dev openssl-dev libffi-dev libxslt-dev libxml2-dev jpeg-dev \
  openjpeg-dev zlib-dev cargo rust
 RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin":$PATH
+ENV PATH="/opt/venv/bin:$PATH"
 COPY $REQUIREMENTS requirements.txt ./
 RUN ls
 RUN echo "$REQUIREMENTS"
