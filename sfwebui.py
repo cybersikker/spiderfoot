@@ -38,6 +38,7 @@ from sfscan import startSpiderFootScanner
 from spiderfoot import SpiderFootDb
 from spiderfoot import SpiderFootHelpers
 from spiderfoot import __version__
+from spiderfoot.cybersikker import CYBERSIKKER_MODULES
 from spiderfoot.logger import logListenerSetup, logWorkerSetup
 
 mp.set_start_method("spawn", force=True)
@@ -784,6 +785,9 @@ class SpiderFootWebUi:
                 if modName not in list(self.config['__modules__'].keys()):
                     continue
 
+                if modName.replace('sfp_', '') not in CYBERSIKKER_MODULES:
+                    continue
+
                 if modOpt not in list(self.config['__modules__'][modName]['optdescs'].keys()):
                     continue
 
@@ -1431,8 +1435,8 @@ class SpiderFootWebUi:
 
         # User selected modules
         if modulelist:
-            print(f"modulelist: {modulelist}")
             modlist = modulelist.replace('module_', '').split(',')
+            print(f"modulelist: {modlist}")
 
         # User selected types
         if len(modlist) == 0 and typelist:

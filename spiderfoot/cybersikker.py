@@ -1,3 +1,7 @@
+REQUIRED_MODULES = [
+  'stor_db',
+]
+
 CYBERSIKKER_MODULES = [
   'dnsresolve',
   'duckduckgo',
@@ -9,6 +13,8 @@ CYBERSIKKER_MODULES = [
   'webserver',
   'whois',
 ]
+
+CYBERSIKKER_MODULES.extend(REQUIRED_MODULES)
 
 ALLOWED_EVENTS = [
   '*',

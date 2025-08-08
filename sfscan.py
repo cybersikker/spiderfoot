@@ -21,6 +21,7 @@ import dns.resolver
 
 from sflib import SpiderFoot
 from spiderfoot import SpiderFootDb, SpiderFootEvent, SpiderFootPlugin, SpiderFootTarget, SpiderFootHelpers, SpiderFootThreadPool, SpiderFootCorrelator, logger
+from spiderfoot.cybersikker import CYBERSIKKER_MODULES, filteredEvents
 
 
 def startSpiderFootScanner(loggingQueue, *args, **kwargs):
@@ -107,7 +108,8 @@ class SpiderFootScanner():
         if not moduleList:
             raise ValueError("moduleList is empty")
 
-        self.__moduleList = moduleList
+        from spiderfoot.cybersikker import CYBERSIKKER_MODULES
+        self.__moduleList = [m for m in moduleList if m.replace("sfp_", "") in CYBERSIKKER_MODULES]
         self.__sf = SpiderFoot(self.__config)
         self.__sf.dbh = self.__dbh
 
@@ -277,6 +279,12 @@ class SpiderFootScanner():
             self.__sf.debug(f"Loading {len(self.__moduleList)} modules ...")
             for modName in self.__moduleList:
                 if not modName:
+                    continue
+
+                print(f"modName: {modName.replace('sfp_', '')}")
+                if modName.replace('sfp_', '') not in CYBERSIKKER_MODULES:
+                    print(f"Skipping module: {modName.replace('sfp_', '')}")
+                    self.__sf.debug(f"Skipping module: {modName.replace('sfp_', '')}")
                     continue
 
                 # Module may have been renamed or removed
