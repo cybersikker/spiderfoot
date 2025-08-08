@@ -1,20 +1,18 @@
 REQUIRED_MODULES = [
-  'stor_db',
+  'sfp__stor_db',
 ]
 
 CYBERSIKKER_MODULES = [
-  'dnsresolve',
-  'duckduckgo',
-  'email',
-  'portscan_tcp',
-  'spider',
-  'sslcert',
-  'webanalytics',
-  'webserver',
-  'whois',
-]
-
-CYBERSIKKER_MODULES.extend(REQUIRED_MODULES)
+  'sfp_dnsresolve',
+  'sfp_duckduckgo',
+  'sfp_email',
+  'sfp_portscan_tcp',
+  'sfp_spider',
+  'sfp_sslcert',
+  'sfp_webanalytics',
+  'sfp_webserver',
+  'sfp_whois',
+] + REQUIRED_MODULES
 
 ALLOWED_EVENTS = [
   '*',

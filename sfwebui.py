@@ -785,9 +785,6 @@ class SpiderFootWebUi:
                 if modName not in list(self.config['__modules__'].keys()):
                     continue
 
-                if modName.replace('sfp_', '') not in CYBERSIKKER_MODULES:
-                    continue
-
                 if modOpt not in list(self.config['__modules__'][modName]['optdescs'].keys()):
                     continue
 
@@ -1436,7 +1433,6 @@ class SpiderFootWebUi:
         # User selected modules
         if modulelist:
             modlist = modulelist.replace('module_', '').split(',')
-            print(f"modulelist: {modlist}")
 
         # User selected types
         if len(modlist) == 0 and typelist:
@@ -1489,6 +1485,7 @@ class SpiderFootWebUi:
 
         # Start running a new scan
         scanId = SpiderFootHelpers.genScanInstanceId()
+
         try:
             p = mp.Process(target=startSpiderFootScanner, args=(self.loggingQueue, scanname, scanId, scantarget, targetType, modlist, cfg))
             p.daemon = True
