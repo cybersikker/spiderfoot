@@ -63,7 +63,7 @@ class sfp_dnsdumpster(SpiderFootPlugin):
             self.error(f"Bad response code \"{res1['code']}\" from DNSDumpster")
         else:
             self.debug(f"Valid response code \"{res1['code']}\" from DNSDumpster")
-        html = BeautifulSoup(str(res1["content"]), features="lxml")
+        html = BeautifulSoup(str(res1["content"]), features="xml")
         csrftoken = None
         csrfmiddlewaretoken = None
         try:
@@ -106,7 +106,7 @@ class sfp_dnsdumpster(SpiderFootPlugin):
             self.error(f"Bad response code \"{res2['code']}\" from DNSDumpster")
             return ret
 
-        html = BeautifulSoup(str(res2["content"]), features="lxml")
+        html = BeautifulSoup(str(res2["content"]), features="xml")
         escaped_domain = re.escape(domain)
         match_pattern = re.compile(r"^[\w\.-]+\." + escaped_domain + r"$")
         for subdomain in html.findAll(text=match_pattern):

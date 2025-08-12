@@ -80,7 +80,7 @@ class sfp_emailformat(SpiderFootPlugin):
         if res['content'] is None:
             return
 
-        html = BeautifulSoup(res["content"], features="lxml")
+        html = BeautifulSoup(res["content"], features="xml")
         if not html:
             return
 

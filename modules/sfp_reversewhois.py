@@ -76,7 +76,7 @@ class sfp_reversewhois(SpiderFootPlugin):
             self.errorState = True
             return ([], [])
 
-        html = BeautifulSoup(res["content"], features="lxml")
+        html = BeautifulSoup(res["content"], features="xml")
         date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
         registrars = set()
         domains = set()
