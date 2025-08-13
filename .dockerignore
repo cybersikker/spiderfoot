@@ -1,18 +1,59 @@
-.git/
+# Git
+.git
+.gitignore
 
-build
-dist
-*.egg-info
-*.egg/
-*.pyc
-*.swp
-
-venv/
-cache/
-log/
-spiderfoot.db*
-spiderfoot.test.db
-
-__pycache__
-htmlcov/
+# Documentation
 docs/
+*.md
+LICENSE
+THANKYOU
+VERSION
+
+# Tests
+test/
+pytest.ini
+conftest.py
+
+# Development files
+docker-compose-dev.yaml
+docker-compose-full.yaml
+start-spiderfoot.sh
+generate-certificate
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# Cache
+cache/
+.cache/
+
+# Temporary files
+*.tmp
+*.temp

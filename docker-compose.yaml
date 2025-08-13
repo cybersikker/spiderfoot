@@ -20,6 +20,10 @@ services:
   spiderfoot:
     build:
       context: ./
+      cache_from:
+        - spiderfoot:latest
+      args:
+        BUILDKIT_INLINE_CACHE: 1
     volumes:
       - spiderfoot-data:/var/lib/spiderfoot
     image: spiderfoot
