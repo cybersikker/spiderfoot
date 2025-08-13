@@ -41,21 +41,12 @@ RUN apk add --no-cache gcc git curl python3 python3-dev py3-pip swig tinyxml-dev
  openjpeg-dev zlib-dev cargo rust
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
-
-# Configure pip cache for faster builds
-ENV PIP_CACHE_DIR=/root/.cache/pip
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PIP_NO_CACHE_DIR=0
-
-# Copy requirements first to leverage Docker layer caching
 COPY $REQUIREMENTS requirements.txt ./
 RUN ls
 RUN echo "$REQUIREMENTS"
 RUN pip3 install -U pip
 RUN pip3 install -r "$REQUIREMENTS"
 
-# Copy source code after dependencies are installed
-COPY . .
 
 
 FROM alpine:3.13.0
@@ -81,6 +72,7 @@ RUN apk --update --no-cache add python3 musl openssl libxslt tinyxml libxml2 jpe
     && chown spiderfoot:spiderfoot $SPIDERFOOT_LOGS \
     && chown spiderfoot:spiderfoot $SPIDERFOOT_CACHE
 
+COPY . .
 COPY --from=build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
