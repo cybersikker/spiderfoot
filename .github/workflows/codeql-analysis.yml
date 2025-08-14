@@ -1,28 +1,34 @@
-name: "CodeQL"
+name: 'CodeQL'
 
 on:
   push:
     branches:
       - master
   schedule:
-    - cron: "26 16 * * 0"
+    - cron: '26 16 * * 0'
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    if: github.actor != 'dependabot[bot]'
+
     strategy:
       fail-fast: true
       matrix:
-        language: ["python"]
+        language: ['python']
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v5
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
