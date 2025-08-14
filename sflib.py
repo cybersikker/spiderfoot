@@ -969,7 +969,7 @@ class SpiderFoot:
         s = socket.socket()
         s.settimeout(int(timeout))
         s.connect((host, int(port)))
-        sock = ssl.wrap_socket(s)
+        sock = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_TLS_CLIENT)
         sock.do_handshake()
         return sock
 
